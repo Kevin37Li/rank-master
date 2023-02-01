@@ -77,6 +77,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 python -m django --version
 ```
 As long as the Django is above 4.1 (which requires Python 3.8 and later), you should be good to go.
+
+
 2. To run, simply change into the outer `rankMaster` directory then do `python manage.py runserver`. You should be able to see the URL in the output:
 ```
 Performing system checks...
