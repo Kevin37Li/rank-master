@@ -68,3 +68,31 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# Backend Stuff
+## Terms
+- **List**: a set of unique items to be ranked.
+- **Ranking**: same as a List but the items are ordered.
+## End points
+- `/myApp` leads to the front page (should list all categories here)
+- `/myApp/search` is the search results page
+- `/myApp/categories/<CategoryName>` shows the lists belonging to a category
+- `/myApp/register` registers a user
+- `/myApp/login` allows the user to log in
+- `/myApp/user/<UserID>` is the user's profile page
+    1. If browsed by user with `UserID`, this should show and link to all the lists (see below for URL) the user has created/contributed to
+    2. If browsed by the public (i.e. anyone else), this should show only the public lists of the user
+
+- `/myApp/user/<UserID>/<ListID>` shows a list's ranking by the user with `<UserID>`
+    1. If browsed by user with `UserID`, there should be options of reranking (should route to `/myApp/lists/<ListID>/contribute`) or turning the ranking public/private.
+    2. If browsed by the public, the aforementioned options shouldn't exist.
+
+- `/myApp/lists/<ListID>` shows the global ranking of the list with `<ListID>`
+    1. If a logged in user is browsing this page and they have contributed to this list before, alert them that they have ranked this before and link to their existing ranking at `/myApp/profile/<UserID>/<ListID>`.
+    2. In all cases, there should be a rank button that links to the rank page.
+    
+- `/myApp/lists/<ListID>/rank` allows for a ranking to be made out of a list
+    1. At this page, the user can rank the list's items. After the ranking is completed, there should be an option of saving the ranking either as a private or a public one (requires logging in/registering as needed). There should also be an option of sharing the ranking.
+
+- `/myApp/createList` should allow a logged-in user to create a list
