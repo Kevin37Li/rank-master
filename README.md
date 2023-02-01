@@ -71,6 +71,27 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 # Backend Stuff
+## How to Run
+1. You can check if Django is installed or not by running the following command:
+```
+python -m django --version
+```
+As long as the Django is above 4.1 (which requires Python 3.8 and later), you should be good to go.
+2. To run, simply change into the outer `rankMaster` directory then do `python manage.py runserver`. You should be able to see the URL in the output:
+```
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have unapplied migrations; your app may not work properly until they are applied.
+Run 'python manage.py migrate' to apply them.
+
+January 31, 2023 - 15:50:53
+Django version 4.1, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+```
+In the above case, the URL is `http://127.0.0.1:8000/`.
 ## Terms
 - **List**: a set of unique items to be ranked.
 - **Ranking**: same as a List but the items are ordered.
@@ -95,4 +116,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - `/myApp/lists/<ListID>/rank` allows for a ranking to be made out of a list
     1. At this page, the user can rank the list's items. After the ranking is completed, there should be an option of saving the ranking either as a private or a public one (requires logging in/registering as needed). There should also be an option of sharing the ranking.
 
-- `/myApp/createList` should allow a logged-in user to create a list
+- `/myApp/lists/create` should allow a logged-in user to create a list
