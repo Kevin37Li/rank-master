@@ -16,6 +16,17 @@ class Ranker extends React.Component {
         };
     }
 
+    resetList = () => {
+        this.setState({
+            started: false,
+            ended: false,
+            // the list queue; lists follow the format of [[the list, minimum rank of this list],...]
+            lists: [[curr_list, 0]],
+            // currently all undefined
+            final_arr: Array.apply(null, Array(curr_list.length)).map(function () {}),
+        });
+    }
+
     changeItems = () => {
         // get all the comparisons still active
         let pairs = this.state.comparisons;
@@ -148,6 +159,7 @@ class Ranker extends React.Component {
                 <div>
                     <h1>Finished!</h1>
                     <ol>{listItems}</ol>
+                    <button onClick={() => this.resetList()}>RESET</button>
                 </div>
             )
         } if (!this.state.started) {
