@@ -10,7 +10,7 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('user/<user_id>/<list_id>', views.userRanking, name='userRanking'),
     path('user/<user_id>', views.userProfile, name='userProfile'),
-    path('lists/<int:list_id>/rank', views.listRank, name='listRank'),
-    path('lists/<int:list_id>', views.listView, name='listView'),
+    path('lists/rank/<list_id>', views.listRank, name='listRank'),
+    path('lists/view/<list_id>', views.listView, name='listView'),
     path('lists/create', views.listCreate, name='listCreate')
 ]

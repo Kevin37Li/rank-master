@@ -76,7 +76,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ```
 python -m django --version
 ```
-As long as the Django is above 4.1 (which requires Python 3.8 and later), you should be good to go.
+
+    As long as the Django is above 4.1 (which requires Python 3.8 and later), you should be good to go.
 
 
 2. To run, simply change into the outer `rankMaster` directory then do `python manage.py runserver`. You should be able to see the URL in the output:
@@ -93,7 +94,13 @@ Django version 4.1, using settings 'mysite.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
-In the above case, the URL is `http://127.0.0.1:8000/`.
+
+    In the above case, the URL is `http://127.0.0.1:8000/`.
+
+3. Install the Python MongoDB driver PyMongo through
+```
+    pip install pymongo[snappy,gssapi,srv,tls]
+```
 ## Terms
 - **List**: a set of unique items to be ranked.
 - **Ranking**: same as a List but the items are ordered.
@@ -108,14 +115,31 @@ In the above case, the URL is `http://127.0.0.1:8000/`.
     2. If browsed by the public (i.e. anyone else), this should show only the public lists of the user
 
 - `/myApp/user/<UserID>/<ListID>` shows a list's ranking by the user with `<UserID>`
-    1. If browsed by user with `UserID`, there should be options of reranking (should route to `/myApp/lists/<ListID>/contribute`) or turning the ranking public/private.
+    1. If browsed by user with `UserID`, there should be options of reranking (should route to `/myApp/lists/rank/<ListID>`) or turning the ranking public/private.
     2. If browsed by the public, the aforementioned options shouldn't exist.
 
-- `/myApp/lists/<ListID>` shows the global ranking of the list with `<ListID>`
-    1. If a logged in user is browsing this page and they have contributed to this list before, alert them that they have ranked this before and link to their existing ranking at `/myApp/profile/<UserID>/<ListID>`.
+- `/myApp/lists/view/<ListID>` shows the global ranking of the list with `<ListID>`
+    1. If a logged in user is browsing this page and they have contributed to this list before, alert them that they have ranked this before and link to their existing ranking at `/myApp/user/<UserID>/<ListID>`.
     2. In all cases, there should be a rank button that links to the rank page.
     
-- `/myApp/lists/<ListID>/rank` allows for a ranking to be made out of a list
+- `/myApp/lists/rank/<ListID>` allows for a ranking to be made out of a list
     1. At this page, the user can rank the list's items. After the ranking is completed, there should be an option of saving the ranking either as a private or a public one (requires logging in/registering as needed). There should also be an option of sharing the ranking.
 
-- `/myApp/lists/create` should allow a logged-in user to create a list
+- `/myApp/lists/create` should allow a logged-in user to create a list:
+    1. The current backend expects list creation using a HTML form. It should submit a POST request to the current endpoint (`/myApp/lists/create`). We have to sort out how to embed the CSRF token in the form. In the POST request body that the form should generate we expect 3 things: 1) a name/value pair of `title`/`<User's list title>`, 2) a positive number of name/value pair of `item<Number>`/`itemName`, and 3) a name/value pair of `private`/`<WhateverValue>` if the user wants the list to be private. The backend would also reject any request to create a list if there are multiple items with the same `itemName`, so the frontend should ideally prevent form submission with repeated `itemName` values. The `itemName` should also be non-empty.
+
+## IMPORTANT NOTES
+The CSRF Middleware is currently disabled (commented out) in `settings.py`. This **has to be enabled** when the frontend and backend is integrated.
+
+## Database Schemes
+### Lists
+Each list document has the following form:
+```
+{
+    _id: Object_Id, // generated automatically
+    user: user_Id, // not implemented yet, would most likely be implemented with the user's username
+    public: Boolean, // indicates if the list is public or private
+    title: String, // title of the list
+    items: Object // object that maps from the name of the item to its global ranking score
+}
+```

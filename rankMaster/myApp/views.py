@@ -1,5 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from bson.objectid import ObjectId
+
+from utils import getListCollection
 
 # `/myApp` leads to the front page (should list all categories here)
 def index(request):
@@ -32,16 +35,54 @@ def userRanking(request, user_id, list_id):
     # call get_object_or_404() on user then on the list
     return HttpResponse("User {}'s ranking for list {}".format(user_id, list_id))
 
-# `/myApp/lists/<ListID>` shows the global ranking of the list with `<ListID>`
+# `/myApp/lists/view/<ListID>` shows the global ranking of the list with `<ListID>`
 def listView(request, list_id):
-    # call get_object_or_404() on list
-    return HttpResponse("Global ranking for list {}".format(list_id))
+    # TODO: catch error if list_id is not a valid objectID
+    listDocument = getListCollection().find_one( { "_id": ObjectId(list_id) } )
+    if listDocument is None:
+        return HttpResponse("The list with ID {} cannot be found.".format(list_id))
+    else:
+        if 'title' not in listDocument or 'items' not in listDocument or 'public' not in listDocument:
+            return HttpResponse("The document for list {} is corrupted.".format(list_id))
+        if not listDocument['public']:
+            # TODO: handle the creator of the list viewing their own private list
+            return HttpResponse("This list is not publicly available.")
+        return HttpResponse("List Title = {}\nItems/Counts = {}".format(listDocument['title'], listDocument['items']))
 
-# `/myApp/lists/<ListID>/rank` allows for a ranking to be made out of a list
+# `/myApp/lists/rank/<ListID>` allows for a ranking to be made out of a list
 def listRank(request, list_id):
     # call get_object_or_404() on list
     return HttpResponse("Rank the list {}".format(list_id))
 
 # `/myApp/lists/create` should allow a logged-in user to create a list
 def listCreate(request):
-    return HttpResponse("Create a list")
+    if request.method == 'GET':
+        return HttpResponse("Create a list")
+    elif request.method == 'POST':
+        # TODO: there are some CSRF token things we gotta sort out: https://docs.djangoproject.com/en/dev/howto/csrf/#using-csrf
+        # Without CSRF the POST request would be blocked with a 403 error
+        # write to the database
+        listTitle = None
+        items = []
+        public = True
+        for key, val in request.POST.items():
+            if "item" in key:
+                items.append(val)
+            elif key == "title":
+                listTitle = val
+            elif key == "private":
+                public = False
+        # ensure the items have unique names
+        if len(items) != len(set(items)):
+            return HttpResponse("There are multiple items with the same name.")
+        if "" in items:
+            return HttpResponse("The list should not have an item with empty string as name.")
+        # write to database
+        
+        post_id = getListCollection().insert_one({ "title": listTitle, 
+                                                   "items": { item: 0 for item in items},
+                                                   "public": public
+                                                }).inserted_id
+        # TODO: add the userID field
+        # _id field is generated automatically
+        return HttpResponse("List Title = {}\nItems = {}\nID = {}".format(listTitle, items, post_id))
