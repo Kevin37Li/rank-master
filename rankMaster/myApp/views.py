@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from bson.objectid import ObjectId
+# from bson.objectid import ObjectId
 
-from utils import getListCollection
+# from utils import getListCollection
 
 # `/myApp` leads to the front page (should list all categories here)
 def index(request):
