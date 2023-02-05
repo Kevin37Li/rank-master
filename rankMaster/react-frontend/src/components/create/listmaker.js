@@ -44,7 +44,7 @@ function ListMaker() {
             category: category,
             items: formItemFields
         }
-        console.log('Submitted:', list)
+        console.log('Submitted: ', list);
     }
 
     const addItemFields = () => {

@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="06f20dfa-e358-4814-b49d-b0257314a12c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/listmaker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/create.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +72,7 @@
       <workItem from="1675283533909" duration="8325000" />
       <workItem from="1675621679996" duration="69000" />
       <workItem from="1675621750609" duration="2007000" />
-      <workItem from="1675634042533" duration="1883000" />
+      <workItem from="1675634042533" duration="2934000" />
     </task>
     <servers />
   </component>

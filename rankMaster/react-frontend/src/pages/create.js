@@ -1,8 +1,9 @@
 import React from 'react';
+import ListMaker from '../components/create/listmaker'
 
 function Create() {
     return (
-        <h1>this is the create page</h1>
+        <ListMaker/>
     );
 }
 
