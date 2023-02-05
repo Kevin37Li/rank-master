@@ -1,24 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import './registeredNavbar.css';
 
 function RegisteredNavbar() {
     return (
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link className="linkstyle" to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/categories">Categories</Link>
+                    <Link className="linkstyle" to="/categories">Categories</Link>
                 </li>
                 <li>
-                    <Link to="/search">Search</Link>
+                    <Link className="linkstyle" to="/search">Search</Link>
                 </li>
                 <li>
-                    <Link to="/create">Create</Link>
+                    <Link className="linkstyle" to="/create">Create</Link>
                 </li>
                 <li>
-                    <Link to="/mylists">MyLists</Link>
+                    <Link className="linkstyle" to="/mylists">My Lists</Link>
                 </li>
             </ul>
         </nav>
