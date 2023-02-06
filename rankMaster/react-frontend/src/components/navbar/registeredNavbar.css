@@ -1,0 +1,32 @@
+/* registeredNavbar.css */
+
+nav {
+    background-color: lightblue;
+    height: 7.5vh;
+    width: 90vw;
+    border-radius: 45px;
+    margin: auto;
+    border-color: black;
+    border-width: 5px;
+    border: solid;
+    position: fixed;
+    margin-left: 5vw;
+    top: 0;
+    margin-top: 2vh;
+
+}
+
+ul {
+    padding-top: 0.6vh;
+}
+
+li {
+    display: inline;
+    padding: 2.5vw;
+}
+
+.linkstyle {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

@@ -3,7 +3,9 @@ import ListMaker from '../components/create/listmaker'
 
 function Create() {
     return (
-        <ListMaker/>
+        <div>
+            <ListMaker/>
+        </div>
     );
 }
 
