@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './listmaker.css';
 
 function ListMaker() {
     const [formItemFields, setFormItemFields] = useState([
@@ -63,10 +64,13 @@ function ListMaker() {
 
     return (
         <div className="ListMaker">
+            <div className="title">
+                <h2>Create Your Own List</h2>
+            </div>
             <form onSubmit={submit}>
-                <div className="ListName">
-                    ListName:
+                <div className="ListNameForm">
                     <input
+                        type="text"
                         name='listName'
                         placeholder='List Name'
                         onChange={event => handleNameChange(event)}
@@ -84,18 +88,19 @@ function ListMaker() {
                         return (
                             <div key={index}>
                                 <input
+                                    type="text"
                                     name='item'
                                     placeholder='Item'
                                     onChange={event => handleItemFormChange(event, index)}
                                     value={form.item}
                                 />
-                                <button onClick={() => removeItemFields(index)}>Remove</button>
+                                <button className="remove" onClick={() => removeItemFields(index)}>Remove</button>
                             </div>
                         )
                     })}
-                    <button onClick={addItemFields}>Add More Items</button>
+                    <button className="add" onClick={addItemFields}>Add More Items</button>
+                    <button className="submit" onClick={submitList}>Submit </button>
                 </div>
-                <button onClick={submitList}>Submit</button>
             </form>
         </div>
     );

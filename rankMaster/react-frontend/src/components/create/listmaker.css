@@ -1,0 +1,72 @@
+/* listmaker.css */
+
+.ListMaker {
+    background-color: white;
+    margin-left: 10vw;
+    margin-top: 15vh;
+}
+
+input[type=text]{
+    padding: 10px;
+    width: 80vw;
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    margin-bottom: 2vh;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 3px solid rgb(6, 167, 220);
+    transition: 0.8s;
+}
+
+input[type=radio] {
+    margin-bottom: 2vh;
+}
+
+.add {
+    background-color: #3c82c2;
+    padding: 10px;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    margin-bottom: 2vh;
+}
+
+.add:hover {
+    background-color: #E9D100;
+    color: black;
+    transition: 0.5s;
+}
+
+.remove {
+    background-color: gray;
+    padding: 10px;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    margin-left: 0.5vw;
+}
+
+.remove:hover {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    transition: 0.5s;
+}
+
+.submit {
+    background-color: green;
+    padding: 10px;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    margin-left: 1vw;
+    width: 5vw;
+}
+
+.submit:hover {
+    background-color: #E9D100;
+    color: black;
+    transition: 0.5s;
+}

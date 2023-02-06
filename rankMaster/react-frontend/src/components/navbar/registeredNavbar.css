@@ -9,7 +9,11 @@ nav {
     border-color: black;
     border-width: 5px;
     border: solid;
-    margin-top: 3vh;
+    position: fixed;
+    margin-left: 5vw;
+    top: 0;
+    margin-top: 2vh;
+
 }
 
 ul {
