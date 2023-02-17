@@ -7,19 +7,19 @@ function RegisteredNavbar() {
         <nav>
             <ul>
                 <li>
-                    <Link className="linkstyle" to="/">Home</Link>
+                    <Link className="linkstyle" to="/myApp">Home</Link>
                 </li>
                 <li>
-                    <Link className="linkstyle" to="/categories">Categories</Link>
+                    <Link className="linkstyle" to="/myApp/categories">Categories</Link>
                 </li>
                 <li>
-                    <Link className="linkstyle" to="/search">Search</Link>
+                    <Link className="linkstyle" to="/myApp/search">Search</Link>
                 </li>
                 <li>
-                    <Link className="linkstyle" to="/create">Create</Link>
+                    <Link className="linkstyle" to="/myApp/lists/create">Create</Link>
                 </li>
                 <li>
-                    <Link className="linkstyle" to="/mylists">My Lists</Link>
+                    <Link className="linkstyle" to="/myApp/mylists">My Lists</Link>
                 </li>
             </ul>
         </nav>

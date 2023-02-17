@@ -16,12 +16,12 @@ export default function App() {
         return (
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<RegisteredLayout />}>
+                    <Route path="myApp/" element={<RegisteredLayout />}>
                         <Route index element={<Home />} />
                         <Route path="categories" element={<Categories />} />
                         <Route path="search" element={<Search />} />
-                        <Route path="create" element={<Create />} />
-                        <Route path="mylists" element={<MyLists />} />
+                        <Route path="lists/create" element={<Create />} />
+                        <Route path="lists" element={<MyLists />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
@@ -30,7 +30,7 @@ export default function App() {
         return (
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<BasicLayout />}>
+                    <Route path="myApp/" element={<BasicLayout />}>
                         <Route index element={<Home />} />
                         <Route path="categories" element={<Categories />} />
                         <Route path="search" element={<Search />} />

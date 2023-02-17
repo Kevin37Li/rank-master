@@ -29,17 +29,15 @@ function ListMaker() {
     }
 
     const submit = (e) => {
-        e.preventDefault();
-        // const list = {
-        //     name: listName,
-        //     category: category,
-        //     items: formItemFields
-        // }
-        // console.log(list)
+        const list = {
+            name: listName,
+            category: category,
+            items: formItemFields
+        }
+        console.log(list)
     }
 
     const submitList = (e) => {
-        e.preventDefault();
         const list = {
             name: listName,
             category: category,
@@ -67,11 +65,11 @@ function ListMaker() {
             <div className="title">
                 <h2>Create Your Own List</h2>
             </div>
-            <form onSubmit={submit}>
+            <form method="post" onSubmit={submit}>
                 <div className="ListNameForm">
                     <input
                         type="text"
-                        name='listName'
+                        name='title'
                         placeholder='List Name'
                         onChange={event => handleNameChange(event)}
                     />
@@ -89,16 +87,16 @@ function ListMaker() {
                             <div key={index}>
                                 <input
                                     type="text"
-                                    name='item'
+                                    name={'item' + index}
                                     placeholder='Item'
                                     onChange={event => handleItemFormChange(event, index)}
-                                    value={form.item}
+                                    value={form['item' + index]}
                                 />
                                 <button className="remove" onClick={() => removeItemFields(index)}>Remove</button>
                             </div>
                         )
                     })}
-                    <button className="add" onClick={addItemFields}>Add More Items</button>
+                    <button type="button" className="add" onClick={addItemFields}>Add More Items</button>
                     <button className="submit" onClick={submitList}>Submit </button>
                 </div>
             </form>
