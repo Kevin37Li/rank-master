@@ -1,19 +1,21 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-# from bson.objectid import ObjectId
+from bson.objectid import ObjectId
 
-# from utils import getListCollection
+from utils import getListCollection
 
 # `/myApp` leads to the front page (should list all categories here)
 def index(request):
-    return HttpResponse("Front page.")
+    return render(request, "index.html")
 
 # `/myApp/search` is the search results page
 def search(request):
+    return render(request, "index.html")
     return HttpResponse("Search page. The search string/page number should be somehow extracted from the URL as http parameters")
 
 # `/myApp/categories/<CategoryName>` shows the lists belonging to a category
 def categories(request, category_name):
+    return render(request, "index.html")
     # call get_object_or_404() on category
     return HttpResponse("Category page for {}".format(category_name))
 
@@ -57,7 +59,7 @@ def listRank(request, list_id):
 # `/myApp/lists/create` should allow a logged-in user to create a list
 def listCreate(request):
     if request.method == 'GET':
-        return HttpResponse("Create a list")
+        return render(request, "index.html")
     elif request.method == 'POST':
         # TODO: there are some CSRF token things we gotta sort out: https://docs.djangoproject.com/en/dev/howto/csrf/#using-csrf
         # Without CSRF the POST request would be blocked with a 403 error
@@ -65,6 +67,7 @@ def listCreate(request):
         listTitle = None
         items = []
         public = True
+        category = None
         for key, val in request.POST.items():
             if "item" in key:
                 items.append(val)
@@ -72,6 +75,8 @@ def listCreate(request):
                 listTitle = val
             elif key == "private":
                 public = False
+            elif key == "category":
+                category = val
         # ensure the items have unique names
         if len(items) != len(set(items)):
             return HttpResponse("There are multiple items with the same name.")
@@ -81,8 +86,9 @@ def listCreate(request):
         
         post_id = getListCollection().insert_one({ "title": listTitle, 
                                                    "items": { item: 0 for item in items},
-                                                   "public": public
+                                                   "public": public,
+                                                   "category": category
                                                 }).inserted_id
         # TODO: add the userID field
         # _id field is generated automatically
-        return HttpResponse("List Title = {}\nItems = {}\nID = {}".format(listTitle, items, post_id))
+        return HttpResponse("List Title = {}\nItems = {}\nID = {}\nCategory = {}".format(listTitle, items, post_id, category))
