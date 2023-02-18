@@ -19,7 +19,7 @@ function RegisteredNavbar() {
                     <Link className="linkstyle" to="/myApp/lists/create">Create</Link>
                 </li>
                 <li>
-                    <Link className="linkstyle" to="/myApp/mylists">My Lists</Link>
+                    <Link className="linkstyle" to="/myApp/lists">My Lists</Link>
                 </li>
             </ul>
         </nav>

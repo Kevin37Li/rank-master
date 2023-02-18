@@ -14,6 +14,8 @@ function ListMaker() {
         { name: 'Other' },
     ])
 
+    const [isPublic, setPublic] = useState('private');
+
     const handleNameChange = (event) => {
         setListName(event.target.value);
     }
@@ -28,10 +30,15 @@ function ListMaker() {
         setCategory(event.target.value);
     }
 
+    const handlePrivacy = () => {
+        setPublic(!isPublic);
+    }
+
     const submit = (e) => {
         const list = {
             name: listName,
             category: category,
+            public: isPublic,
             items: formItemFields
         }
         console.log(list)
@@ -41,6 +48,7 @@ function ListMaker() {
         const list = {
             name: listName,
             category: category,
+            public: isPublic,
             items: formItemFields
         }
         console.log('Submitted: ', list);
@@ -74,6 +82,17 @@ function ListMaker() {
                         onChange={event => handleNameChange(event)}
                     />
                 </div>
+                <div className="PubPriv">
+                    <label>
+                        Public List:
+                        <input
+                            name="public"
+                            type="checkbox"
+                            checked={isPublic}
+                            value={isPublic}
+                            onChange={handlePrivacy}/>
+                    </label>
+                </div>
                 <div className="Category" onChange={event => handleCategoryChange(event)}>
                     <input type="radio" value="Movies" name="category"/> Movie
                     <input type="radio" value="Music" name="category"/> Music
@@ -97,7 +116,7 @@ function ListMaker() {
                         )
                     })}
                     <button type="button" className="add" onClick={addItemFields}>Add More Items</button>
-                    <button className="submit" onClick={submitList}>Submit </button>
+                    <button className="submit" onClick={submitList}>Submit</button>
                 </div>
             </form>
         </div>
