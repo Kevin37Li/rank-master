@@ -66,15 +66,15 @@ def listCreate(request):
         # write to the database
         listTitle = None
         items = []
-        public = True
+        public = False
         category = None
         for key, val in request.POST.items():
             if "item" in key:
                 items.append(val)
             elif key == "title":
                 listTitle = val
-            elif key == "private":
-                public = False
+            elif key == "public":
+                public = True
             elif key == "category":
                 category = val
         # ensure the items have unique names
@@ -91,4 +91,4 @@ def listCreate(request):
                                                 }).inserted_id
         # TODO: add the userID field
         # _id field is generated automatically
-        return HttpResponse("List Title = {}\nItems = {}\nID = {}\nCategory = {}".format(listTitle, items, post_id, category))
+        return HttpResponse("List Title = {}\nItems = {}\nID = {}\nCategory = {}\nPublic = {}".format(listTitle, items, post_id, category, public))
