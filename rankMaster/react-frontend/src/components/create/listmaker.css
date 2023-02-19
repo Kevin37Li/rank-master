@@ -25,6 +25,10 @@ input[type=radio] {
     margin-bottom: 2vh;
 }
 
+input[type=checkbox] {
+    margin-bottom: 2vh;
+}
+
 .add {
     background-color: #3c82c2;
     padding: 10px;
