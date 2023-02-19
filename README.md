@@ -76,7 +76,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ```
 python -m django --version
 ```
-
     As long as the Django is above 4.1 (which requires Python 3.8 and later), you should be good to go.
 
 
@@ -94,7 +93,6 @@ Django version 4.1, using settings 'mysite.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
-
     In the above case, the URL is `http://127.0.0.1:8000/`.
 
 3. Install the Python MongoDB driver PyMongo through
@@ -126,7 +124,8 @@ Quit the server with CONTROL-C.
     1. At this page, the user can rank the list's items. After the ranking is completed, there should be an option of saving the ranking either as a private or a public one (requires logging in/registering as needed). There should also be an option of sharing the ranking.
 
 - `/myApp/lists/create` should allow a logged-in user to create a list:
-    1. The current backend expects list creation using a HTML form. It should submit a POST request to the current endpoint (`/myApp/lists/create`). We have to sort out how to embed the CSRF token in the form. In the POST request body that the form should generate we expect 3 things: 1) a name/value pair of `title`/`<User's list title>`, 2) a positive number of name/value pair of `item<Number>`/`itemName`, and 3) a name/value pair of `private`/`<WhateverValue>` if the user wants the list to be private. The backend would also reject any request to create a list if there are multiple items with the same `itemName`, so the frontend should ideally prevent form submission with repeated `itemName` values. The `itemName` should also be non-empty.
+    1. The backend can serve the form for list creation if received a GET request. It would also handle the POST request submitted by said form. The form have yet to include the list creator's userID automatically.
+- `/myApp/get/lists` is for internal use only, only sends back a JSON response. Refer to the comments for documentation.
 
 ## IMPORTANT NOTES
 The CSRF Middleware is currently disabled (commented out) in `settings.py`. This **has to be enabled** when the frontend and backend is integrated.
@@ -140,6 +139,8 @@ Each list document has the following form:
     user: user_Id, // not implemented yet, would most likely be implemented with the user's username
     public: Boolean, // indicates if the list is public or private
     title: String, // title of the list
-    items: Object // object that maps from the name of the item to its global ranking score
+    items: Object, // object that maps from the name of the item to its global ranking score
+    createdAt: Integer, // time of list creation in unix time
+    category: String // category of the list
 }
 ```

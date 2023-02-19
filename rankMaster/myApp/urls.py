@@ -12,5 +12,6 @@ urlpatterns = [
     path('user/<user_id>', views.userProfile, name='userProfile'),
     path('lists/rank/<list_id>', views.listRank, name='listRank'),
     path('lists/view/<list_id>', views.listView, name='listView'),
-    path('lists/create', views.listCreate, name='listCreate')
+    path('lists/create', views.listCreate, name='listCreate'),
+    path('get/lists/', views.getLists, name='getLists')
 ]
