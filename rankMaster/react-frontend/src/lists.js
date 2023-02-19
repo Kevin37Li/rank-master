@@ -31,3 +31,46 @@ export const jojo_list = [
     "Part 7: Steel Ball Run",
     "Part 8: JoJolion",
 ]
+
+export const cs_list = [
+    "CS 31", "CS 32", "CS 33", "CS 35L", "CS M51A",
+    "CS 111", "CS 118", "CS 131", "CS 130", "CS M151B", "CS M152A", "CS 180", "CS 181"
+]
+
+export const list_of_lists = [
+    {
+        title: "JJBA",
+        category: "TV",
+        public: true,
+        items: jojo_list,
+        id: 1,
+    },
+    {
+        title: "UCLA CS Required Classes",
+        category: "Other",
+        public: true,
+        items: cs_list,
+        id: 2,
+    },
+    {
+        title: "Zutomayo songs",
+        category: "Music",
+        public: true,
+        items: zutomayo_list,
+        id: 3,
+    },
+    {
+        title: "MLB West Teams",
+        category: "Other",
+        public: true,
+        items: mlb_list,
+        id: 4,
+    },
+    {
+        title: "Numbers",
+        category: "Other",
+        public: true,
+        items: num_list,
+        id: 5,
+    }
+]
