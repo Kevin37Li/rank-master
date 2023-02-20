@@ -22,25 +22,30 @@ function Search() {
     }
 
     return (
-        <div className="search">
-            <div className="searchBar">
-                <form>
-                    <input
-                        type="text"
-                        placeholder='Search here'
-                        onChange={(event) => handleChange(event)}
-                        // value={searchInput}
-                    />
-                    <button onClick={(event) => submitSearch(event)}>Search</button>
-                </form>
+        <div className="searchscreen">
+            <div className="search">
+                <div className="searchtitle">
+                    <h2>Search</h2>
+                </div>
+                <div className="searchBar">
+                    <form>
+                        <input
+                            type="text2"
+                            placeholder='Search here'
+                            onChange={(event) => handleChange(event)}
+                            // value={searchInput}
+                        />
+                        <button className="submitSearch" onClick={(event) => submitSearch(event)}>Search</button>
+                    </form>
+                </div>
+                <div className="searchResults">
+                    <h3>Search results for {finSearchInput}:</h3>
+                    <ol>
+                        {searchResults.map((item) => <SearchEntries title={item.title} category={item.category} id={item.id} />)}
+                    </ol>
+                </div>
             </div>
-            <div className="searchResults">
-                <h3>Search results for {finSearchInput}:</h3>
-                <ol>
-                    {searchResults.map((item) => <SearchEntries title={item.title} category={item.category} id={item.id} />)}
-                </ol>
-            </div>
-        </div>
+        </div> 
     );
 }
 

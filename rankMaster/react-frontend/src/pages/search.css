@@ -1,6 +1,43 @@
 /* search.css */
 
+.searchscreen {
+    background: linear-gradient(#abd4ff, #fff8c9);
+    height: 100vh;
+    width: 100vw;
+}
+
 .search {
     margin-left: 10vw;
-    margin-top: 15vh;
+    padding-top: 15vh;
+}
+
+input[type=text2]{
+    padding: 10px;
+    width: 80vw;
+    border: solid;
+    border-color: gray;
+    border-radius: 5px;
+    margin-bottom: 2vh;
+    outline: none;
+}
+
+input[type=text2]:focus {
+    border: 3px solid rgb(6, 167, 220);
+    transition: 0.4s;
+}
+
+.submitSearch {
+    background-color: rgb(79, 79, 255);
+    padding: 10px;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    margin-left: 0.5vw;
+    width: 5vw;
+}
+
+.submitSearch:hover {
+    background-color: #fff48e;
+    color: black;
+    transition: 0.5s;
 }
