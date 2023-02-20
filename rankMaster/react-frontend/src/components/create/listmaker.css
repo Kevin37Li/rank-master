@@ -1,7 +1,11 @@
 /* listmaker.css */
 
-.createscreen {
+.container {
+    overflow-y: auto;
     background: linear-gradient(to bottom right, #abd4ff, #fff8c9);
+}
+
+.createscreen {
     height: 100vh;
     width: 100vw;
 }
