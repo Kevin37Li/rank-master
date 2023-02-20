@@ -1,9 +1,14 @@
 /* listmaker.css */
 
+.createscreen {
+    background: linear-gradient(#abd4ff, #fff8c9);
+    height: 100vh;
+    width: 100vw;
+}
+
 .ListMaker {
-    background-color: white;
     margin-left: 10vw;
-    margin-top: 15vh;
+    padding-top: 15vh;
 }
 
 input[type=text]{

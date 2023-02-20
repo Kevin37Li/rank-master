@@ -69,57 +69,60 @@ function ListMaker() {
     }
 
     return (
-        <div className="ListMaker">
-            <div className="title">
-                <h2>Create Your Own List</h2>
-            </div>
-            <form method="post" onSubmit={submit}>
-                <div className="ListNameForm">
-                    <input
-                        type="text"
-                        name='title'
-                        placeholder='List Name'
-                        onChange={event => handleNameChange(event)}
-                    />
+        <div className="createscreen"> 
+            <div className="ListMaker">
+                <div className="title">
+                    <h2>Create Your Own List</h2>
                 </div>
-                <div className="PubPriv">
-                    <label>
-                        Public List:
+                <form method="post" onSubmit={submit}>
+                    <div className="ListNameForm">
                         <input
-                            name="public"
-                            type="checkbox"
-                            checked={isPublic}
-                            value={isPublic}
-                            onChange={handlePrivacy}/>
-                    </label>
-                </div>
-                <div className="Category" onChange={event => handleCategoryChange(event)}>
-                    <input type="radio" value="Movies" name="category"/> Movie
-                    <input type="radio" value="Music" name="category"/> Music
-                    <input type="radio" value="Sports" name="category"/> Sports
-                    <input type="radio" value="TV" name="category"/> TV
-                    <input type="radio" value="Other" name="category"/> Other
-                </div>
-                <div className="ItemList">
-                    {formItemFields.map((form, index) => {
-                        return (
-                            <div key={index}>
-                                <input
-                                    type="text"
-                                    name={'item' + index}
-                                    placeholder='Item'
-                                    onChange={event => handleItemFormChange(event, index)}
-                                    value={form['item' + index]}
-                                />
-                                <button className="remove" onClick={() => removeItemFields(index)}>Remove</button>
-                            </div>
-                        )
-                    })}
-                    <button type="button" className="add" onClick={addItemFields}>Add More Items</button>
-                    <button className="submit" onClick={submitList}>Submit</button>
-                </div>
-            </form>
+                            type="text"
+                            name='title'
+                            placeholder='List Name'
+                            onChange={event => handleNameChange(event)}
+                        />
+                    </div>
+                    <div className="PubPriv">
+                        <label>
+                            Public List:
+                            <input
+                                name="public"
+                                type="checkbox"
+                                checked={isPublic}
+                                value={isPublic}
+                                onChange={handlePrivacy}/>
+                        </label>
+                    </div>
+                    <div className="Category" onChange={event => handleCategoryChange(event)}>
+                        <input type="radio" value="Movies" name="category"/> Movie
+                        <input type="radio" value="Music" name="category"/> Music
+                        <input type="radio" value="Sports" name="category"/> Sports
+                        <input type="radio" value="TV" name="category"/> TV
+                        <input type="radio" value="Other" name="category"/> Other
+                    </div>
+                    <div className="ItemList">
+                        {formItemFields.map((form, index) => {
+                            return (
+                                <div key={index}>
+                                    <input
+                                        type="text"
+                                        name={'item' + index}
+                                        placeholder='Item'
+                                        onChange={event => handleItemFormChange(event, index)}
+                                        value={form['item' + index]}
+                                    />
+                                    <button className="remove" onClick={() => removeItemFields(index)}>Remove</button>
+                                </div>
+                            )
+                        })}
+                        <button type="button" className="add" onClick={addItemFields}>Add More Items</button>
+                        <button className="submit" onClick={submitList}>Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
+        
     );
 }
 
