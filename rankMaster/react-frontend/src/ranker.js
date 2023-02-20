@@ -1,11 +1,45 @@
 import React, { useEffect } from 'react';
-import {mlb_list, num_list, zutomayo_list, jojo_list} from "./lists";
+import {mlb_list, num_list, zutomayo_list, jojo_list, cs_list} from "./lists";
 
-let curr_list = num_list;
+let curr_list = [];
+
+let getList = (id) => {
+    switch(id) {
+        case 1:
+            return jojo_list;
+        case 2:
+            return cs_list;
+        case 3:
+            return zutomayo_list;
+        case 4:
+            return mlb_list;
+        case 5:
+            return num_list;
+        default:
+            console.log("No such list");
+            return [];
+    }
+}
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
 
 class Ranker extends React.Component {
     constructor(props) {
         super(props);
+
+        let id = Number(window.location.pathname.split('/').at(-1));
+
+        curr_list = shuffle(getList(id));
+
         this.state = {
             started: false,
             ended: false,

@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import './search.css';
 import {list_of_lists} from "../lists";
+import { useNavigate } from "react-router-dom";
 
-function SearchEntries(props) {
-    return <li>{props.title} - {props.category} - {props.id}</li>;
-}
+// function SearchEntries(props) {
+//     let link1 = "/myApp/lists/rank";
+//     // return <a to={link1} className="btn btn-primary">{props.title} - {props.category} - {props.id}</a>
+//     return <button>{props.title} - {props.category} - {props.id}</button>;
+// }
 
 function Search() {
     const [searchInput, setSearchInput] = useState("");
@@ -19,6 +22,11 @@ function Search() {
         setFinSearchInput(searchInput);
         setSearchResults(list_of_lists)
         e.preventDefault();
+    }
+
+    let navigate = useNavigate();
+    const routeChange = (link) =>{
+        navigate(link);
     }
 
     return (
@@ -41,7 +49,7 @@ function Search() {
                 <div className="searchResults">
                     <h3>Search results for {finSearchInput}:</h3>
                     <ol>
-                        {searchResults.map((item) => <SearchEntries title={item.title} category={item.category} id={item.id} />)}
+                        {searchResults.map((item) => <button onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)}>{item.title} - {item.category} - {item.id}</button>)}
                     </ol>
                 </div>
             </div>

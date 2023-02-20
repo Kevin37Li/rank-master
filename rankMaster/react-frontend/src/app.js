@@ -8,6 +8,7 @@ import Search from "./pages/search";
 import Login from "./pages/login";
 import Create from "./pages/create";
 import MyLists from "./pages/mylists";
+import Ranker from "./ranker";
 
 export default function App() {
     let authenticated = true;
@@ -22,6 +23,7 @@ export default function App() {
                         <Route path="search" element={<Search />} />
                         <Route path="lists/create" element={<Create />} />
                         <Route path="lists" element={<MyLists />} />
+                        <Route path="lists/rank/:id" element={<Ranker />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
