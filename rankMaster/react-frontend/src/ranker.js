@@ -1,24 +1,15 @@
 import React, { useEffect } from 'react';
-import {mlb_list, num_list, zutomayo_list, jojo_list, cs_list} from "./lists";
+import {list_of_lists} from "./lists";
 
 let curr_list = [];
 
 let getList = (id) => {
-    switch(id) {
-        case 1:
-            return jojo_list;
-        case 2:
-            return cs_list;
-        case 3:
-            return zutomayo_list;
-        case 4:
-            return mlb_list;
-        case 5:
-            return num_list;
-        default:
-            console.log("No such list");
-            return [];
+    let list = list_of_lists.find(x => x.id === id);
+    if (typeof list === 'undefined') {
+        console.log("No such list");
+        return [];
     }
+    return list.items;
 }
 
 function shuffle(a) {
