@@ -15,13 +15,14 @@ def index(request):
 # `/myApp/search` is the search results page
 def search(request):
     return render(request, "index.html")
-    return HttpResponse("Search page. The search string/page number should be somehow extracted from the URL as http parameters")
+
+# `/myApp/categories` shows all categories
+def categoriesList(request):
+    return render(request, "index.html")
 
 # `/myApp/categories/<CategoryName>` shows the lists belonging to a category
-def categories(request, category_name):
+def categoriesSpecific(request, category_name):
     return render(request, "index.html")
-    # call get_object_or_404() on category
-    return HttpResponse("Category page for {}".format(category_name))
 
 # `/myApp/register` registers a user
 def register(request):
