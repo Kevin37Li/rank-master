@@ -1,0 +1,17 @@
+/* categories.css */
+
+.containercat {
+    overflow-y: auto;
+    background: linear-gradient(to bottom right, #abd4ff, #fff8c9);
+}
+
+.categoriesscreen {
+    height: 100vh;
+    width: 100vw;
+}
+
+.categories {
+    margin-left: 10vw;
+    padding-top: 15vh;
+    margin-right: 10vw;
+}
