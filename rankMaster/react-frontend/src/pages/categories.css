@@ -14,4 +14,31 @@
     margin-left: 10vw;
     padding-top: 15vh;
     margin-right: 10vw;
+    padding-bottom: 15vh;
+}
+
+.catbutton {
+    background-color: rgba(231, 205, 255, 0.821);
+    padding: 10px;
+    color: black;
+    border-color: blueviolet;
+    border-width: 2px;
+    border-radius: 10px;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    border-style: groove;
+    height: 10vh;
+    z-index: -1;
+}
+
+.leftarr {
+    border-style: solid;
+    border-width: 2px;
+    margin-right: 0.5vw;
+}
+
+.rightarr {
+    border-style: solid;
+    border-width: 2px;
+    margin-left: 0.5vw;
 }

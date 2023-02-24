@@ -23,6 +23,7 @@ function Categories() {
 
     return (
         <div className="containercat">
+            <meta charset="UTF-8"></meta>
             <div className="categoriesscreen">
                 <div className="categories">
                     <h2>Categories</h2>
@@ -30,7 +31,7 @@ function Categories() {
                         <h3>Movies</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {movie_items.map((item) => (
-                                <button onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
                                     {item.title}
                                 </button>
                             ))}
@@ -40,7 +41,7 @@ function Categories() {
                         <h3>Music</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {music_items.map((item) => (
-                                <button onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
                                     {item.title}
                                 </button>
                             ))}
@@ -50,7 +51,7 @@ function Categories() {
                         <h3>Sports</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {sport_items.map((item) => (
-                                <button onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
                                     {item.title}
                                 </button>
                             ))}
@@ -60,7 +61,7 @@ function Categories() {
                         <h3>TV</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {tv_items.map((item) => (
-                                <button onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
                                     {item.title}
                                 </button>
                             ))}
@@ -70,7 +71,7 @@ function Categories() {
                         <h3>Others</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {others_items.map((item) => (
-                                <button onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)} style={{width: '160px',}}>
                                     {item.title}
                                 </button>
                             ))}
@@ -87,8 +88,8 @@ function LeftArrow() {
         React.useContext(VisibilityContext);
 
     return (
-        <button disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
-            Left
+        <button className="leftarr" disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
+            &#x25C0;
         </button>
     );
 }
@@ -97,8 +98,8 @@ function RightArrow() {
     const { isLastItemVisible, scrollNext } = React.useContext(VisibilityContext);
 
     return (
-        <button disabled={isLastItemVisible} onClick={() => scrollNext()}>
-            Right
+        <button className="rightarr" disabled={isLastItemVisible} onClick={() => scrollNext()}>
+            &#x25B6;
         </button>
     );
 }
