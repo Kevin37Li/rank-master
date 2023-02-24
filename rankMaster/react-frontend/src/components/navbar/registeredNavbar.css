@@ -20,7 +20,7 @@ ul {
     padding-top: 0.75vh;
 }
 
-li {
+.navbarlink {
     display: inline;
     padding: 2.5vw;
 }

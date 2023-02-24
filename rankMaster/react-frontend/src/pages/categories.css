@@ -18,17 +18,20 @@
 }
 
 .catbutton {
-    background-color: rgba(231, 205, 255, 0.821);
+    background-color: white;
     padding: 10px;
     color: black;
-    border-color: blueviolet;
-    border-width: 2px;
+    /*border-color: blueviolet;*/
+    /*border-width: 2px;*/
     border-radius: 10px;
     margin-left: 0.5vw;
     margin-right: 0.5vw;
-    border-style: groove;
-    height: 10vh;
+    border-style: solid;
+    height: 20vh;
     z-index: -1;
+    /*background: linear-gradient(to bottom left, #f3fff9, #fbf3ff);*/
+    background: url(./5039684.jpg);
+    background-size: cover;
 }
 
 .leftarr {
@@ -41,4 +44,10 @@
     border-style: solid;
     border-width: 2px;
     margin-left: 0.5vw;
+}
+
+.titletext {
+    font-size: 1.5vw;
+    font-weight: 800;
+    color: rgb(0, 162, 255);
 }

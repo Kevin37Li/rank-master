@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {list_of_lists} from "./lists";
+import './ranker.css';
 
 let curr_list = [];
 
