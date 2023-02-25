@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import {list_of_lists} from "./lists";
 import './ranker.css';
+import axios from 'axios';
 
 let curr_list = [];
 
@@ -41,6 +42,14 @@ class Ranker extends React.Component {
             final_arr: Array.apply(null, Array(curr_list.length)).map(function () {}),
         };
     }
+
+    // componentDidMount(){
+    //     let id = Number(window.location.pathname.split('/').at(-1));
+    //     fetch('/myApp/get/lists/?id=63fa8736a50e5d131a991885')
+    //         .then(res =>
+    //             res.json())
+    //         .then(console.log(res.payload.items))
+    // }
 
     resetList = () => {
         this.setState({
