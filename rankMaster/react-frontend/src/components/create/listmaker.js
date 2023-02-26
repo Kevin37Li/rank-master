@@ -73,7 +73,7 @@ function ListMaker() {
             <div className="createscreen"> 
                 <div className="ListMaker">
                     <div className="title">
-                        <h2>Create Your Own List</h2>
+                        <h1>Create Your Own List</h1>
                     </div>
                     <form method="post" onSubmit={submit}>
                         <div className="ListNameForm">
