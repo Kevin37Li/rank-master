@@ -182,22 +182,41 @@ class Ranker extends React.Component {
         if (this.state.ended) {
             const listItems = this.state.final_arr.reverse().map(item => <li>{item}</li>);
             return (
-                <div>
-                    <h1>Finished!</h1>
-                    <ol>{listItems}</ol>
-                    <button onClick={() => this.resetList()}>RESET</button>
+                <div className="containerstart">
+                    <div className="startscreen">
+                        <div className="startrank">
+                            <h1>Ranker</h1>
+                            <h2>Finished!</h2>
+                            <ol>{listItems}</ol>
+                            <button className="reset" onClick={() => this.resetList()}>RESET</button>
+                        </div>
+                    </div>
                 </div>
             )
         } if (!this.state.started) {
             // start the process by pressing "START"
-            return <button onClick={() => this.startClick()}>START</button>
+            return (
+                <div className="containerstart">
+                    <div className="startscreen">
+                        <div className="startrank">
+                            <h1>Ranker</h1>
+                            <button className="startbutton" onClick={() => this.startClick()}>START</button>
+                        </div>
+                    </div>
+                </div>
+            )
         } else {
             // during the process, change the name of the buttons
             return (
-                <div>
-                    <h1>Choose the better item!</h1>
-                    <button onClick={() => this.handleClick("button-A")}>{this.state.itemA}</button>
-                    <button onClick={() => this.handleClick("button-B")}>{this.state.itemB}</button>
+                <div className="containerstart">
+                    <div className="startscreen">
+                        <div className="startrank">
+                            <h1>Ranker</h1>
+                            <h2 className="choose">Choose the better item!</h2>
+                            <button className="leftoption" onClick={() => this.handleClick("button-A")}><div className="optiontext">{this.state.itemA}</div></button>
+                            <button className="rightoption" onClick={() => this.handleClick("button-B")}><div className="optiontext">{this.state.itemB}</div></button>
+                        </div>
+                    </div>
                 </div>
             )
         }

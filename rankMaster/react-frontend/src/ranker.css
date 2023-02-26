@@ -6,3 +6,88 @@
 li {
     display: list-item;
 }
+
+.containerstart {
+    overflow-y: auto;
+    background: linear-gradient(to bottom right, #abd4ff, #fff8c9);
+}
+
+.startscreen {
+    height: 100vh;
+    width: 100vw;
+}
+
+.startrank {
+    margin-left: 10vw;
+    padding-top: 15vh;
+    margin-right: 10vw;
+    padding-bottom: 15vh;
+}
+
+.startbutton {
+    background-color: green;
+    padding: 10px;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    margin-left: 38vw;
+    margin-top: 20vh;
+    width: 5vw;
+}
+
+.choose {
+    margin-left: 32vw;
+    margin-top: 10vh;
+}
+
+.leftoption {
+    margin-left: 20vw;
+    background-color: white;
+    padding: 10px;
+    color: black;
+    /*border-color: blueviolet;*/
+    /*border-width: 2px;*/
+    border-radius: 10px;
+    margin-right: 0.5vw;
+    border-style: solid;
+    height: 30vh;
+    width: 20vw;
+    z-index: -1;
+    background-color: rgb(255, 247, 207);
+}
+
+.rightoption {
+    background-color: white;
+    padding: 10px;
+    color: black;
+    /*border-color: blueviolet;*/
+    /*border-width: 2px;*/
+    border-radius: 10px;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
+    border-style: solid;
+    height: 30vh;
+    width: 20vw;
+    z-index: -1;
+    background-color: rgb(246, 195, 255);
+}
+
+.optiontext {
+    font-size: 1.5vw;
+    font-weight: 800;
+    color: rgb(0, 162, 255);
+}
+
+.reset {
+    background-color: gray;
+    padding: 10px;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+}
+
+.reset:hover {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    transition: 0.5s;
+}
