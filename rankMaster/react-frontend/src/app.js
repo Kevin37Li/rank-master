@@ -11,7 +11,7 @@ import MyLists from "./pages/mylists";
 import Ranker from "./ranker";
 
 export default function App() {
-    let authenticated = true;
+    let authenticated = false;
 
     if (authenticated) {
         return (
