@@ -2,3 +2,7 @@
     display: list-item;
     list-style-position: inside;
 }
+
+li {
+    display: list-item;
+}

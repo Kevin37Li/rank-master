@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import {list_of_lists} from "./lists";
+import './ranker.css';
+import axios from 'axios';
 
 let curr_list = [];
 
@@ -29,17 +31,47 @@ class Ranker extends React.Component {
 
         let id = Number(window.location.pathname.split('/').at(-1));
 
-        curr_list = shuffle(getList(id));
+        // curr_list = shuffle(getList(id));
 
         this.state = {
             started: false,
             ended: false,
             // the list queue; lists follow the format of [[the list, minimum rank of this list],...]
-            lists: [[curr_list, 0]],
+            // lists: [[curr_list, 0]],
             // currently all undefined
             final_arr: Array.apply(null, Array(curr_list.length)).map(function () {}),
         };
     }
+
+    componentDidMount() {
+        let id = window.location.pathname.split('/').at(-1);
+        this.getData('/myApp/get/lists/?id=' + id);
+    }
+
+    getData = (uri) => {
+        fetch(uri)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                // successful got the data
+                // console.log(data);
+                // console.log(data.payload);
+                // console.log(Object.entries(data.payload.items));
+                // console.log(typeof Object.keys(data.payload.items));
+                curr_list = shuffle(Object.keys(data.payload.items))
+                this.setState({ lists: [[curr_list, 0]] });
+            });
+    }
+
+    retreiveList = (id) => {
+        fetch('/myApp/get/lists/?id=' + id)
+            .then((response) => response.json())
+            .then(listItems => {
+                this.setState({ lists: [[listItems, 0]] });
+            })
+            .catch(err => console.log(err));
+    };
 
     resetList = () => {
         this.setState({
@@ -109,7 +141,7 @@ class Ranker extends React.Component {
                 itemB: pairs[0][1],
                 // pivot: pairs[0][0],
                 comparisons: pairs.slice(1),
-            })
+            }, console.log(this.state.itemA, this.state.itemB))
         }
     }
 
