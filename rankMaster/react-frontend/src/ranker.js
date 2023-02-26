@@ -31,25 +31,47 @@ class Ranker extends React.Component {
 
         let id = Number(window.location.pathname.split('/').at(-1));
 
-        curr_list = shuffle(getList(id));
+        // curr_list = shuffle(getList(id));
 
         this.state = {
             started: false,
             ended: false,
             // the list queue; lists follow the format of [[the list, minimum rank of this list],...]
-            lists: [[curr_list, 0]],
+            // lists: [[curr_list, 0]],
             // currently all undefined
             final_arr: Array.apply(null, Array(curr_list.length)).map(function () {}),
         };
     }
 
-    // componentDidMount(){
-    //     let id = Number(window.location.pathname.split('/').at(-1));
-    //     fetch('/myApp/get/lists/?id=63fa8736a50e5d131a991885')
-    //         .then(res =>
-    //             res.json())
-    //         .then(console.log(res.payload.items))
-    // }
+    componentDidMount() {
+        let id = window.location.pathname.split('/').at(-1);
+        this.getData('/myApp/get/lists/?id=' + id);
+    }
+
+    getData = (uri) => {
+        fetch(uri)
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                // successful got the data
+                // console.log(data);
+                // console.log(data.payload);
+                // console.log(Object.entries(data.payload.items));
+                // console.log(typeof Object.keys(data.payload.items));
+                curr_list = shuffle(Object.keys(data.payload.items))
+                this.setState({ lists: [[curr_list, 0]] });
+            });
+    }
+
+    retreiveList = (id) => {
+        fetch('/myApp/get/lists/?id=' + id)
+            .then((response) => response.json())
+            .then(listItems => {
+                this.setState({ lists: [[listItems, 0]] });
+            })
+            .catch(err => console.log(err));
+    };
 
     resetList = () => {
         this.setState({
@@ -119,7 +141,7 @@ class Ranker extends React.Component {
                 itemB: pairs[0][1],
                 // pivot: pairs[0][0],
                 comparisons: pairs.slice(1),
-            })
+            }, console.log(this.state.itemA, this.state.itemB))
         }
     }
 
@@ -191,22 +213,41 @@ class Ranker extends React.Component {
         if (this.state.ended) {
             const listItems = this.state.final_arr.reverse().map(item => <li>{item}</li>);
             return (
-                <div>
-                    <h1>Finished!</h1>
-                    <ol>{listItems}</ol>
-                    <button onClick={() => this.resetList()}>RESET</button>
+                <div className="containerstart">
+                    <div className="startscreen">
+                        <div className="startrank">
+                            <h1>Ranker</h1>
+                            <h2>Finished!</h2>
+                            <ol>{listItems}</ol>
+                            <button className="reset" onClick={() => this.resetList()}>RESET</button>
+                        </div>
+                    </div>
                 </div>
             )
         } if (!this.state.started) {
             // start the process by pressing "START"
-            return <button onClick={() => this.startClick()}>START</button>
+            return (
+                <div className="containerstart">
+                    <div className="startscreen">
+                        <div className="startrank">
+                            <h1>Ranker</h1>
+                            <button className="startbutton" onClick={() => this.startClick()}>START</button>
+                        </div>
+                    </div>
+                </div>
+            )
         } else {
             // during the process, change the name of the buttons
             return (
-                <div>
-                    <h1>Choose the better item!</h1>
-                    <button onClick={() => this.handleClick("button-A")}>{this.state.itemA}</button>
-                    <button onClick={() => this.handleClick("button-B")}>{this.state.itemB}</button>
+                <div className="containerstart">
+                    <div className="startscreen">
+                        <div className="startrank">
+                            <h1>Ranker</h1>
+                            <h2 className="choose">Choose the better item!</h2>
+                            <button className="leftoption" onClick={() => this.handleClick("button-A")}><div className="optiontext">{this.state.itemA}</div></button>
+                            <button className="rightoption" onClick={() => this.handleClick("button-B")}><div className="optiontext">{this.state.itemB}</div></button>
+                        </div>
+                    </div>
                 </div>
             )
         }
