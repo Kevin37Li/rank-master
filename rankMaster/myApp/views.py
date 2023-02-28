@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from pymongo import DESCENDING
@@ -7,6 +7,16 @@ from pymongo import DESCENDING
 from utils import getListCollection
 
 import time
+
+
+# import serializers for converting between model instances and python dicts
+from .serializers import UserProfileSerializer
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+from .models import UserProfile
 
 # `/myApp` leads to the front page (should list all categories here)
 def index(request):
@@ -32,10 +42,18 @@ def register(request):
 def login(request):
     return HttpResponse("Login Page")
 
-# `/myApp/user/<UserID>` is the user's profile page
-def userProfile(request, user_id):
-    # call get_object_or_404() on user
-    return HttpResponse("User {}'s profile page".format(user_id))
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+def profile(request):
+    profile, created = UserProfile.objects.get_or_create(user_id=request.user.id)
+    if request.method == 'GET':
+        serializer = UserProfileSerializer(profile)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = UserProfileSerializer(profile, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 # `/myApp/user/<UserID>/<ListID>` shows a list's ranking by the user with `<UserID>`
 def userRanking(request, user_id, list_id):

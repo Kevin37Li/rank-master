@@ -5,7 +5,10 @@ from django.db import models
 
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True)
+    email = models.EmailField(null=True, blank=True)
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    id_lists = models.TextField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
