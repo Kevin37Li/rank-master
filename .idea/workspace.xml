@@ -6,16 +6,30 @@
   <component name="ChangeListManager">
     <list default="true" id="06f20dfa-e358-4814-b49d-b0257314a12c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/listmaker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/src/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/components/navbar/basicNavbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/src/components/navbar/basicNavbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/basicLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/basicLayout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/rankMaster/react-frontend/src/pages/login.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2L4n15OorKeDgWLB8u6UGkWYtkc" />
   <component name="ProjectLevelVcsManager">
@@ -25,19 +39,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_interpreter_path" value="node" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2022.3.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\justi\Desktop\COM SCI 130\rank-master" />
@@ -73,6 +87,7 @@
       <workItem from="1675621679996" duration="69000" />
       <workItem from="1675621750609" duration="2007000" />
       <workItem from="1675634042533" duration="2934000" />
+      <workItem from="1677371856097" duration="9876000" />
     </task>
     <servers />
   </component>
@@ -89,6 +104,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

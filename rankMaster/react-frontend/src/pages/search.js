@@ -33,7 +33,7 @@ function Search() {
         <div className="searchscreen">
             <div className="search">
                 <div className="searchtitle">
-                    <h2>Search</h2>
+                    <h1>Search</h1>
                 </div>
                 <div className="searchBar">
                     <form>
