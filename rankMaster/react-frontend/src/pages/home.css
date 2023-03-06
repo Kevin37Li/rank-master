@@ -1,9 +1,11 @@
 /* Home.css */
 
-.homescreen {
+.containerhome {
+    overflow-y: auto;
     background: linear-gradient(to bottom right, #abd4ff, #fff8c9);
-    /*background-image: url(./5039684.jpg);*/
-    background-size: cover;
+}
+
+.homescreen {
     height: 100vh;
     width: 100vw;
 }
@@ -13,3 +15,60 @@
     padding-top: 15vh;
 }
 
+.welcome {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    color: #09426B;
+    font-weight: bold;
+}
+
+.about {
+    width: 80vw;
+    height: 10vh;
+    line-height: 25px;
+    font-family: Andale Mono, monospace;
+    font-weight: bold;
+}
+
+.featurelist {
+    width: 80vw;
+    height: 20vh;
+}
+
+.features {
+    display: inline-block;
+    margin-right: 5vw;
+    background-color: #09426B;
+    height: 15vh;
+    width: 20vw;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Andale Mono, monospace;
+    font-size: 1.5vw;
+    padding-top: 4vh;
+    font-weight: 900;
+}
+
+.featurestext {
+    padding-left: 3vw;
+    padding-right: 3vw;
+}
+
+.design {
+    position: absolute;
+    right: -15vw;
+    bottom: -20vh;
+}
+
+.design2 {
+    position: absolute;
+    right: 5vw;
+    bottom: -40vh;
+}
+
+.second {
+    font-family: Comic Sans MS, Comic Sans, cursive;
+    color: #09426B;
+    font-weight: bold;
+    margin-top: 2.5vw;
+}
