@@ -37,6 +37,7 @@ export default function App() {
                         <Route path="categories" element={<Categories />} />
                         <Route path="search" element={<Search />} />
                         <Route path="login" element={<Login />} />
+                        <Route path="lists/rank/:id" element={<Ranker />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
