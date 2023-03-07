@@ -73,7 +73,6 @@ def listView(request, list_id):
             # TODO: handle the creator of the list viewing their own private list
             return HttpResponse("This list is not publicly available.")
         return HttpResponse("List Title = {}\nItems/Counts = {}".format(listDocument['title'], listDocument['items']))
-
 '''
 handles GET request submitted to '/get/lists/<params>
 params are normal GET parameters. Accepted parameters include:
@@ -103,7 +102,7 @@ def getLists(request):
     def setPayload(payload): #payload can be either a dictionary or a list of dictionaries
         return JsonResponse({ 'payload': payload})
     pageArg = 1 # by default
-    resultsPerPage = 2 # arbitrary atm, presentation value should be much higher (at least 10)
+    resultsPerPage = 10 # arbitrary atm, presentation value should be much higher (at least 10)
     # if there is only one of id, category, contains GET arguments, it's valid
     if ("id" in request.GET or "category" in request.GET or "contains" in request.GET) and len(request.GET) == 1:
         pass

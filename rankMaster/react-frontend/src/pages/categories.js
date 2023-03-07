@@ -85,7 +85,7 @@ function Categories() {
                         <h3>Movies</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {movieItems.map((item) => (
-                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item._id}`)} style={{width: '20vw',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/view/${item._id}`)} style={{width: '20vw',}}>
                                     <p className="titletext">{item.title}</p>
                                 </button>
                             ))}
@@ -95,7 +95,7 @@ function Categories() {
                         <h3>Music</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {musicItems.map((item) => (
-                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item._id}`)} style={{width: '20vw',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/view/${item._id}`)} style={{width: '20vw',}}>
                                     <p className="titletext">{item.title}</p>
                                 </button>
                             ))}
@@ -105,7 +105,7 @@ function Categories() {
                         <h3>Sports</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {sportsItems.map((item) => (
-                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item._id}`)} style={{width: '20vw',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/view/${item._id}`)} style={{width: '20vw',}}>
                                     <p className="titletext">{item.title}</p>
                                 </button>
                             ))}
@@ -115,7 +115,7 @@ function Categories() {
                         <h3>TV</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {tvItems.map((item) => (
-                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item._id}`)} style={{width: '20vw',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/view/${item._id}`)} style={{width: '20vw',}}>
                                     <p className="titletext">{item.title}</p>
                                 </button>
                             ))}
@@ -125,7 +125,7 @@ function Categories() {
                         <h3>Others</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
                             {otherItems.map((item) => (
-                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/rank/${item._id}`)} style={{width: '20vw',}}>
+                                <button className="catbutton" onClick={() => routeChange(`/myApp/lists/view/${item._id}`)} style={{width: '20vw',}}>
                                     <p className="titletext">{item.title}</p>
                                 </button>
                             ))}

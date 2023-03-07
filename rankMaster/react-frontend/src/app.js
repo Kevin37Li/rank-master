@@ -9,9 +9,11 @@ import Login from "./pages/login";
 import Create from "./pages/create";
 import MyLists from "./pages/mylists";
 import Ranker from "./ranker";
+import ListInfo from "./pages/listInfo";
 
 export default function App() {
-    let authenticated = false;
+    // let authenticated = false;
+    let authenticated = true;
 
     if (authenticated) {
         return (
@@ -24,6 +26,7 @@ export default function App() {
                         <Route path="lists/create" element={<Create />} />
                         <Route path="lists" element={<MyLists />} />
                         <Route path="lists/rank/:id" element={<Ranker />} />
+                        <Route path="lists/view/:id" element={<ListInfo />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
@@ -38,6 +41,7 @@ export default function App() {
                         <Route path="search" element={<Search />} />
                         <Route path="login" element={<Login />} />
                         <Route path="lists/rank/:id" element={<Ranker />} />
+                        <Route path="lists/view/:id" element={<ListInfo />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
