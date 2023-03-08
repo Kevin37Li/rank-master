@@ -30,30 +30,32 @@ function Search() {
     }
 
     return (
-        <div className="searchscreen">
-            <div className="search">
-                <div className="searchtitle">
-                    <h1>Search</h1>
+        <div className="containersearch">
+            <div className="searchscreen">
+                <div className="search">
+                    <div className="searchtitle">
+                        <h1>Search</h1>
+                    </div>
+                    <div className="searchBar">
+                        <form>
+                            <input
+                                type="text2"
+                                placeholder='Search here'
+                                onChange={(event) => handleChange(event)}
+                                // value={searchInput}
+                            />
+                            <button className="submitSearch" onClick={(event) => submitSearch(event)}>Search</button>
+                        </form>
+                    </div>
+                    <div className="searchResults">
+                        <h3>Search results for {finSearchInput}:</h3>
+                        <ul className="resultslist">
+                            {searchResults.map((item) => <button className="searchresultsbutton" onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)}><p className="itemtitle">{item.title}</p><br></br><p className="itemcat">Category: {item.category} | ID: {item.id}</p></button>)}
+                        </ul>
+                    </div>
                 </div>
-                <div className="searchBar">
-                    <form>
-                        <input
-                            type="text2"
-                            placeholder='Search here'
-                            onChange={(event) => handleChange(event)}
-                            // value={searchInput}
-                        />
-                        <button className="submitSearch" onClick={(event) => submitSearch(event)}>Search</button>
-                    </form>
-                </div>
-                <div className="searchResults">
-                    <h3>Search results for {finSearchInput}:</h3>
-                    <ol>
-                        {searchResults.map((item) => <button onClick={() => routeChange(`/myApp/lists/rank/${item.id}`)}>{item.title} - {item.category} - {item.id}</button>)}
-                    </ol>
-                </div>
-            </div>
-        </div> 
+            </div> 
+        </div>
     );
 }
 
