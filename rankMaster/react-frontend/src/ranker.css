@@ -9,7 +9,7 @@ li {
 
 .containerstart {
     overflow-y: auto;
-    background: linear-gradient(to bottom right, #abd4ff, #fff8c9);
+    background-color: rgba(0, 0, 0, 0.906);
 }
 
 .startscreen {
@@ -22,26 +22,32 @@ li {
     padding-top: 15vh;
     margin-right: 10vw;
     padding-bottom: 15vh;
+    font-family: Andale Mono, monospace;
+    color: white;
 }
 
 .startbutton {
     background-color: green;
     padding: 10px;
     color: white;
-    border: 0;
-    border-radius: 10px;
-    margin-left: 38vw;
-    margin-top: 20vh;
-    width: 5vw;
+    font-size: 3vw;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 500px;
+    margin-left: 30vw;
+    margin-top: 12vh;
+    width: 20vw;
+    height: 20vw;
+    background: linear-gradient(to bottom right, #00a6c3, #00cd6d);
 }
 
 .choose {
-    margin-left: 32vw;
+    margin-left: 30vw;
     margin-top: 10vh;
 }
 
 .leftoption {
-    margin-left: 20vw;
+    margin-left: 15vw;
     background-color: white;
     padding: 10px;
     color: black;
@@ -50,10 +56,10 @@ li {
     border-radius: 10px;
     margin-right: 0.5vw;
     border-style: solid;
-    height: 30vh;
-    width: 20vw;
+    height: 35vh;
+    width: 25vw;
     z-index: -1;
-    background-color: rgb(255, 247, 207);
+    background-color: #00a6c3;
 }
 
 .rightoption {
@@ -66,16 +72,16 @@ li {
     margin-left: 0.5vw;
     margin-right: 0.5vw;
     border-style: solid;
-    height: 30vh;
-    width: 20vw;
+    height: 35vh;
+    width: 25vw;
     z-index: -1;
-    background-color: rgb(246, 195, 255);
+    background-color: #00cd6d;
 }
 
 .optiontext {
     font-size: 1.5vw;
     font-weight: 800;
-    color: rgb(0, 162, 255);
+    color: white;
 }
 
 .reset {
