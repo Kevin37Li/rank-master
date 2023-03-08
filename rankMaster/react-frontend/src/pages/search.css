@@ -58,6 +58,7 @@ input[type=text2]:focus {
     grid-template-columns: 1fr 1fr;
     column-gap: 2vw;
     row-gap: 2vh;
+    padding-bottom: 10vh;
 }
 
 .searchresultsbutton {
