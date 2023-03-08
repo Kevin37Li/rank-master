@@ -187,7 +187,7 @@ class Ranker extends React.Component {
                         <div className="startrank">
                             <h1>Ranker</h1>
                             <h2>Finished!</h2>
-                            <ol>{listItems}</ol>
+                            <ol className="resultlistitems">{listItems}</ol>
                             <button className="reset" onClick={() => this.resetList()}>RESET</button>
                         </div>
                     </div>

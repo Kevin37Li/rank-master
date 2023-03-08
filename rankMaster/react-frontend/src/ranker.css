@@ -97,3 +97,7 @@ li {
     color: white;
     transition: 0.5s;
 }
+
+.resultlistitems {
+    color: rgba(255, 255, 255, 0.587);
+}
