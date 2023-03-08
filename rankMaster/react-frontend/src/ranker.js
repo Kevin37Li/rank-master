@@ -60,7 +60,7 @@ class Ranker extends React.Component {
                 // console.log(Object.entries(data.payload.items));
                 // console.log(typeof Object.keys(data.payload.items));
                 curr_list = shuffle(Object.keys(data.payload.items))
-                this.setState({ lists: [[curr_list, 0]] });
+                this.setState({ lists: [[curr_list, 0]], items: data.payload.items, payload: data.payload});
             });
     }
 
@@ -82,6 +82,24 @@ class Ranker extends React.Component {
             // currently all undefined
             final_arr: Array.apply(null, Array(curr_list.length)).map(function () {}),
         });
+    }
+
+    updateBackend = (final_list) => {
+        console.log(this.state.items);
+        console.log(final_list.length);
+        let new_items = this.state.items;
+        let curr_num = 1;
+        for (let i = 0; i < final_list.length; i++) {
+            // text += cars[i] + "<br>";
+            let curr_key = final_list[i];
+            let new_val = new_items[curr_key] + curr_num;
+            new_items[curr_key] = new_val;
+            curr_num++;
+        }
+        console.log(new_items);
+        let new_payload = this.state.payload;
+        new_payload.items = new_items;
+        this.setState({ items: new_items, payload: new_payload }, console.log(this.state.payload));
     }
 
     changeItems = () => {
@@ -174,6 +192,7 @@ class Ranker extends React.Component {
             this.setState({
                 ended: true,
             })
+            this.updateBackend(this.state.final_arr);
             return;
         }
 
