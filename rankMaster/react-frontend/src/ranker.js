@@ -85,21 +85,25 @@ class Ranker extends React.Component {
     }
 
     updateBackend = (final_list) => {
-        console.log(this.state.items);
-        console.log(final_list.length);
-        let new_items = this.state.items;
-        let curr_num = 1;
-        for (let i = 0; i < final_list.length; i++) {
-            // text += cars[i] + "<br>";
-            let curr_key = final_list[i];
-            let new_val = new_items[curr_key] + curr_num;
-            new_items[curr_key] = new_val;
-            curr_num++;
-        }
-        console.log(new_items);
+        // console.log(this.state.items);
+        // console.log(final_list.length);
+        // let new_items = this.state.items;
+        // let curr_num = 1;
+        // for (let i = 0; i < final_list.length; i++) {
+        //     // text += cars[i] + "<br>";
+        //     let curr_key = final_list[i];
+        //     let new_val = new_items[curr_key] + curr_num;
+        //     new_items[curr_key] = new_val;
+        //     curr_num++;
+        // }
+        // console.log(new_items);
         let new_payload = this.state.payload;
-        new_payload.items = new_items;
-        this.setState({ items: new_items, payload: new_payload }, console.log(this.state.payload));
+        new_payload.items = final_list;
+        // this.setState({ items: new_items, payload: new_payload }, console.log(this.state.payload));
+        this.setState({ payload: new_payload }, console.log(this.state.payload));
+        let post_endpoint = '/myApp/lists/view/' + new_payload._id;
+        // console.log(post_endpoint);
+        axios.post(post_endpoint, new_payload);
     }
 
     changeItems = () => {
@@ -189,10 +193,12 @@ class Ranker extends React.Component {
         if (this.state.lists.length === 0){
             console.log('All done!');
             console.log('Final list: ', this.state.final_arr);
+            let reversed = this.state.final_arr.reverse();
             this.setState({
                 ended: true,
+                final_arr: reversed
             })
-            this.updateBackend(this.state.final_arr);
+            this.updateBackend(reversed);
             return;
         }
 
@@ -230,7 +236,7 @@ class Ranker extends React.Component {
     render() {
         // if the process ended, say you are done & list them in the right order
         if (this.state.ended) {
-            const listItems = this.state.final_arr.reverse().map(item => <li>{item}</li>);
+            const listItems = this.state.final_arr.map(item => <li>{item}</li>);
             return (
                 <div className="containerstart">
                     <div className="startscreen">
