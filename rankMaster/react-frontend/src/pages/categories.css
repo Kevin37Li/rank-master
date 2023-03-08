@@ -2,7 +2,8 @@
 
 .containercat {
     overflow-y: auto;
-    background: linear-gradient(to bottom right, #abd4ff, #fff8c9);
+    /*background: linear-gradient(to bottom right, #abd4ff, #fff8c9);*/
+    background-color: rgba(0, 0, 0, 0.906);
 }
 
 .categoriesscreen {
@@ -15,6 +16,11 @@
     padding-top: 15vh;
     margin-right: 10vw;
     padding-bottom: 15vh;
+}
+
+.title {
+    color: white;
+    font-family: Andale Mono, monospace;
 }
 
 .catbutton {
@@ -30,7 +36,7 @@
     height: 20vh;
     z-index: -1;
     /*background: linear-gradient(to bottom left, #f3fff9, #fbf3ff);*/
-    background: url(./5039684.jpg);
+    background: url(./5153829.jpg);
     background-size: cover;
 }
 
@@ -49,5 +55,5 @@
 .titletext {
     font-size: 1.5vw;
     font-weight: 800;
-    color: rgb(0, 162, 255);
+    color: #3c9f71;/*linear-gradient(to bottom right, #00a6c3, #00cd6d);*/
 }

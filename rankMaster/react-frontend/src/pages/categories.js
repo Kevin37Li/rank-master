@@ -80,7 +80,7 @@ function Categories() {
             <meta charset="UTF-8"></meta>
             <div className="categoriesscreen">
                 <div className="categories">
-                    <h1>Categories</h1>
+                    <h1 className="title">Categories</h1>
                     <div>
                         <h3>Movies</h3>
                         <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
