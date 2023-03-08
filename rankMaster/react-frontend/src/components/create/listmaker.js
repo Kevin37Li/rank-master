@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import './listmaker.css';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 function ListMaker() {
     const [formItemFields, setFormItemFields] = useState([
-        { item: '' },
+        { },
     ])
 
     const [listName, setListName] = useState([
@@ -15,6 +17,11 @@ function ListMaker() {
     ])
 
     const [isPublic, setPublic] = useState('private');
+
+    let navigate = useNavigate();
+    const routeChange = (link) =>{
+        navigate(link);
+    }
 
     const handleNameChange = (event) => {
         setListName(event.target.value);
@@ -35,13 +42,22 @@ function ListMaker() {
     }
 
     const submit = (e) => {
-        const list = {
-            name: listName,
-            category: category,
-            public: isPublic,
-            items: formItemFields
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("title", listName);
+        formData.append("category", category);
+        if (isPublic) {
+            formData.append("public", 'private');
         }
-        console.log(list)
+        for (let i = 0; i < formItemFields.length; i++) {
+            for (const key in formItemFields[i]) {
+                let nkey = 'item' + i;
+                formData.append(nkey, formItemFields[i][key]);
+            }
+        }
+        axios.post('/myApp/lists/create', formData).then(res => {
+            routeChange(`/myApp/lists/view/${res.data.id}`);
+        });
     }
 
     const submitList = (e) => {
@@ -55,9 +71,7 @@ function ListMaker() {
     }
 
     const addItemFields = () => {
-        let object = {
-            item: ''
-        }
+        let object = { }
 
         setFormItemFields([...formItemFields, object])
     }
@@ -75,7 +89,8 @@ function ListMaker() {
                     <div className="title">
                         <h1>Create Your Own List</h1>
                     </div>
-                    <form method="post" onSubmit={submit}>
+                    {/*<form method="post" onSubmit={submit}>*/}
+                    <form onSubmit={submit}>
                         <div className="ListNameForm">
                             <input
                                 type="text"

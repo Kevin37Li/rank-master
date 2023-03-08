@@ -215,4 +215,4 @@ def listCreate(request):
                                                    "user": userId
                                                 }).inserted_id
         # _id field is generated automatically
-        return JsonResponse({ 'id': post_id })
+        return JsonResponse({ 'id': str(post_id) })
