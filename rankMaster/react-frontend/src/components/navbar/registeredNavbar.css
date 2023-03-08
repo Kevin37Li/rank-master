@@ -1,23 +1,23 @@
 /* registeredNavbar.css */
 
 nav {
-    background-color: whitesmoke;
+    background-color: #0095ff;
+    background-color: #005862;
+    background: linear-gradient(to bottom right, #00a6c3, #00cd6d);
     height: 7.5vh;
-    width: 90vw;
-    border-radius: 45px;
+    width: 100vw;
     margin: auto;
     border-color: black;
     border-width: 5px;
     border: solid;
     position: fixed;
-    margin-left: 5vw;
     top: 0;
-    margin-top: 2vh;
     z-index: 1;
 }
 
 ul {
     padding-top: 0.75vh;
+    margin-left: 5vw;
 }
 
 .navbarlink {
@@ -27,6 +27,6 @@ ul {
 
 .linkstyle {
     text-decoration: none;
-    color: black;
+    color: white;
     font-weight: bold;
 }

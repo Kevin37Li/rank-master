@@ -1,7 +1,8 @@
 /* search.css */
 
 .searchscreen {
-    background: linear-gradient(to bottom right, #abd4ff, #fff8c9);
+    /*background: linear-gradient(to bottom right, #abd4ff, #fff8c9);*/
+    background-color: rgba(0, 0, 0, 0.906);
     height: 100vh;
     width: 100vw;
 }
@@ -9,6 +10,8 @@
 .search {
     margin-left: 10vw;
     padding-top: 15vh;
+    color: white;
+    font-family: Andale Mono, monospace;
 }
 
 input[type=text2]{
@@ -19,6 +22,7 @@ input[type=text2]{
     border-radius: 5px;
     margin-bottom: 2vh;
     outline: none;
+    background-color: rgb(223, 223, 223);
 }
 
 input[type=text2]:focus {
@@ -27,7 +31,7 @@ input[type=text2]:focus {
 }
 
 .submitSearch {
-    background-color: rgb(79, 79, 255);
+    background: linear-gradient(to bottom right, #00a6c3, #00cd6d);
     padding: 10px;
     color: white;
     border: 0;
