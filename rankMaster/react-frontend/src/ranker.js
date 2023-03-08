@@ -29,13 +29,14 @@ class Ranker extends React.Component {
     constructor(props) {
         super(props);
 
-        let id = Number(window.location.pathname.split('/').at(-1));
+        let id = window.location.pathname.split('/').at(-1);
 
         // curr_list = shuffle(getList(id));
 
         this.state = {
             started: false,
             ended: false,
+            id: id,
             // the list queue; lists follow the format of [[the list, minimum rank of this list],...]
             // lists: [[curr_list, 0]],
             // currently all undefined
@@ -233,6 +234,11 @@ class Ranker extends React.Component {
         }, this.changeItems);
     }
 
+    handleViewClick() {
+        window.location.href = '/myApp/lists/view/' + this.state.id;
+    }
+
+
     render() {
         // if the process ended, say you are done & list them in the right order
         if (this.state.ended) {
@@ -245,6 +251,7 @@ class Ranker extends React.Component {
                             <h2>Finished!</h2>
                             <ol className="resultlistitems">{listItems}</ol>
                             <button className="reset" onClick={() => this.resetList()}>RESET</button>
+                            <button className="reset" onClick={() => this.handleViewClick()}>VIEW GLOBAL</button>
                         </div>
                     </div>
                 </div>
