@@ -4,9 +4,10 @@ from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from pymongo import DESCENDING
 
-from utils import getListCollection
+from utils import getListCollection, jsonResponseWithErrorMessage
 
 import time
+import json
 
 
 # import serializers for converting between model instances and python dicts
@@ -62,17 +63,8 @@ def userRanking(request, user_id, list_id):
 
 # `/myApp/lists/view/<ListID>` shows the global ranking of the list with `<ListID>`
 def listView(request, list_id):
-    # TODO: catch error if list_id is not a valid objectID
-    listDocument = getListCollection().find_one( { "_id": ObjectId(list_id) } )
-    if listDocument is None:
-        return HttpResponse("The list with ID {} cannot be found.".format(list_id))
-    else:
-        if 'title' not in listDocument or 'items' not in listDocument or 'public' not in listDocument:
-            return HttpResponse("The document for list {} is corrupted.".format(list_id))
-        if not listDocument['public']:
-            # TODO: handle the creator of the list viewing their own private list
-            return HttpResponse("This list is not publicly available.")
-        return HttpResponse("List Title = {}\nItems/Counts = {}".format(listDocument['title'], listDocument['items']))
+    return render(request, "index.html")
+
 '''
 handles GET request submitted to '/get/lists/<params>
 params are normal GET parameters. Accepted parameters include:
@@ -97,8 +89,6 @@ returns:
   }
 '''
 def getLists(request):
-    def jsonResponseWithErrorMessage(msg):
-        return JsonResponse({ 'error': { 'message': msg } })
     def setPayload(payload): #payload can be either a dictionary or a list of dictionaries
         return JsonResponse({ 'payload': payload})
     pageArg = 1 # by default
@@ -159,7 +149,33 @@ def getLists(request):
 
 # `/myApp/lists/rank/<ListID>` allows for a ranking to be made out of a list
 def listRank(request, list_id):
-    return render(request, "index.html")
+    if request.method == 'GET':
+        return render(request, "index.html")
+    elif request.method == 'POST':
+        payload = json.loads(request.body)
+        # extracting the useful parts
+        list_id = payload['_id']
+        ranker_username = payload['user']
+        ranking = payload['items']
+        # update the global ranking vote using Borda count
+        try:
+            objId = ObjectId(list_id)
+        except InvalidId:
+            return jsonResponseWithErrorMessage('This id is invalid')
+        listDoc = getListCollection().find_one({"_id": objId})
+        if listDoc is None:
+            return jsonResponseWithErrorMessage("We can't find the list with id = {}".format(request.GET['id']))
+        if 'items' not in listDoc:
+            return jsonResponseWithErrorMessage("The document of the list is corrupted (no 'items' field)")
+        updatedItems = listDoc['items']
+        for score, item in enumerate(list(reversed(ranking))):
+            if item not in listDoc['items']:
+                return jsonResponseWithErrorMessage("The given ranking contains items not in the original list")
+            updatedItems[item] += score
+        # print(updatedItems)
+        result = getListCollection().update_one({'_id': objId}, {'$set': { 'items': updatedItems }}) # write into the DB
+        # print("matched {}, modified {}".format(result.matched_count, result.modified_count))
+        return HttpResponse('success')
 
 # `/myApp/lists/create` should allow a logged-in user to create a list
 def listCreate(request):
@@ -184,11 +200,11 @@ def listCreate(request):
                 public = True
             elif key == "category":
                 category = val
-        # ensure the items have unique names
+        # ensure the items have unique names 
         if len(items) != len(set(items)):
-            return HttpResponse("There are multiple items with the same name.")
+            return jsonResponseWithErrorMessage("There are multiple items with the same name.")
         if "" in items:
-            return HttpResponse("The list should not have an item with empty string as name.")
+            return jsonResponseWithErrorMessage("The list should not have an item with empty string as name.")
 
         # write to database
         post_id = getListCollection().insert_one({ "title": listTitle, 
@@ -199,4 +215,4 @@ def listCreate(request):
                                                    "user": userId
                                                 }).inserted_id
         # _id field is generated automatically
-        return HttpResponse("List Title = {}\nItems = {}\nID = {}\nCategory = {}\nPublic = {}\ncreatedAt = {}\nuser = {}".format(listTitle, items, post_id, category, public, timestamp, userId))
+        return JsonResponse({ 'id': post_id })

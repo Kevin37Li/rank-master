@@ -23,7 +23,7 @@ function ListInfo() {
             // Step - 2
             // Sort the array based on the second element (i.e. the value)
             items.sort(
-                (first, second) => { return first[1] - second[1] }
+                (first, second) => { return second[1] - first[1] }
             );
             // Step - 3
             // Obtain the list of keys in sorted order of the values.

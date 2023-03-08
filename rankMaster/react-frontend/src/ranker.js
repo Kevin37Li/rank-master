@@ -101,7 +101,7 @@ class Ranker extends React.Component {
         new_payload.items = final_list;
         // this.setState({ items: new_items, payload: new_payload }, console.log(this.state.payload));
         this.setState({ payload: new_payload }, console.log(this.state.payload));
-        let post_endpoint = '/myApp/lists/view/' + new_payload._id;
+        let post_endpoint = '/myApp/lists/rank/' + new_payload._id;
         // console.log(post_endpoint);
         axios.post(post_endpoint, new_payload);
     }
