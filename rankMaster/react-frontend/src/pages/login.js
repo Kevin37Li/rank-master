@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import {TextField, Button, Divider}from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import {useDispatch} from "react-redux";
+import {storeCheckLogin, storeUsername} from "../redux/redux";
+import {useNavigate} from 'react-router-dom';
+import axios from "axios";
 
 
 const LoginBox = styled.div`
@@ -14,9 +18,9 @@ const LoginBox = styled.div`
 `;
 
 const EmailBox = {
-    width: "80%",
+    width: "90%",
     height: "20%",
-    padding: "1vh 1vw 0 1vw",
+    margin: "0vh 1vw 0vh 1vw",
     backgroundColor: "white",
 };
 
@@ -28,14 +32,39 @@ const LoginDivider = {
 
 function Login() {
 
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const dispatch = useDispatch();
+    const navigation = useNavigate();
+
+
+    const handleLogin = async () => {
+        let u = email;
+        let p = password;
+        console.log(email);
+        console.log(password);
+        if (u !== "" && p !== "") {
+            const request = {username: email, password: password}
+            await axios.post("/auth/jwt/create", request)
+            .then((res) => {
+                console.log(res.data)
+                dispatch(storeUsername(email));
+                dispatch(storeCheckLogin(true));
+                navigation('/myApp', { replace: true });
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+    };
+
     return (
         <div>
             <meta charSet="UTF-8"></meta>
             <LoginBox>
                 <h1>Login</h1>
-                <TextField style={EmailBox} label="Email" variant="filled" />
-                <TextField style={EmailBox} label="Password" variant="filled" />
-                <Button variant="contained">Login</Button>
+                <TextField required id="username" label="Username" style={EmailBox} onChange={(event) => setEmail(event.target.value)}/>
+                <TextField required id="password" style={EmailBox} label="Password" onChange={(event) => setPassword(event.target.value)}/>
+                <Button variant="contained" onClick={() => handleLogin()} >Login</Button>
                 <Divider style={LoginDivider}/>
                 <Button variant="contained">
                     <TwitterIcon/>

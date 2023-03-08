@@ -10,43 +10,29 @@ import Create from "./pages/create";
 import MyLists from "./pages/mylists";
 import Ranker from "./ranker";
 import ListInfo from "./pages/listInfo";
+import store from "./redux/redux";
+import {Provider} from "react-redux";
 
 export default function App() {
-    // let authenticated = false;
-    let authenticated = true;
 
-    if (authenticated) {
-        return (
-            <BrowserRouter>
-                <Routes>
-                    <Route path="myApp/" element={<RegisteredLayout />}>
-                        <Route index element={<Home />} />
-                        <Route path="categories" element={<Categories />} />
-                        <Route path="search" element={<Search />} />
-                        <Route path="lists/create" element={<Create />} />
-                        <Route path="lists" element={<MyLists />} />
-                        <Route path="lists/rank/:id" element={<Ranker />} />
-                        <Route path="lists/view/:id" element={<ListInfo />} />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-        )
-    } else {
-        return (
-            <BrowserRouter>
-                <Routes>
-                    <Route path="myApp/" element={<BasicLayout />}>
-                        <Route index element={<Home />} />
-                        <Route path="categories" element={<Categories />} />
-                        <Route path="search" element={<Search />} />
-                        <Route path="login" element={<Login />} />
-                        <Route path="lists/rank/:id" element={<Ranker />} />
-                        <Route path="lists/view/:id" element={<ListInfo />} />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-        );
-    }
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+            <Routes>
+                <Route path="myApp/" element={<BasicLayout />}>
+                    <Route index element={<Home />} />
+                    <Route path="categories" element={<Categories />} />
+                    <Route path="search" element={<Search />} />
+                    <Route path="lists/create" element={<Create />} />
+                    <Route path="lists" element={<MyLists />} />
+                    <Route path="lists/rank/:id" element={<Ranker />} />
+                    <Route path="lists/view/:id" element={<ListInfo />} />
+                    <Route path="login" element={<Login />} />
+                </Route>
+            </Routes>
+            </Provider>
+        </BrowserRouter>
+    )
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
