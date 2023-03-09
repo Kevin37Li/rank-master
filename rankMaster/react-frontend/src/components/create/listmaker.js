@@ -12,9 +12,7 @@ function ListMaker() {
         { name: '' },
     ])
 
-    const [category, setCategory] = useState([
-        { name: 'Other' },
-    ])
+    const [category, setCategory] = useState('Other')
 
     const [isPublic, setPublic] = useState('private');
 
@@ -115,7 +113,7 @@ function ListMaker() {
                             <input type="radio" value="Music" name="category"/> Music
                             <input type="radio" value="Sports" name="category"/> Sports
                             <input type="radio" value="TV" name="category"/> TV
-                            <input type="radio" value="Other" name="category"/> Other
+                            <input type="radio" value="Other" name="category" defaultChecked /> Other
                         </div>
                         <div className="ItemList">
                             {formItemFields.map((form, index) => {
