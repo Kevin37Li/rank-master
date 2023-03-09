@@ -11,10 +11,10 @@ import MyLists from "./pages/mylists";
 import Ranker from "./ranker";
 import ListInfo from "./pages/listInfo";
 import store from "./redux/redux";
-import {Provider} from "react-redux";
+import {Provider, useSelector} from "react-redux";
+import Register from "./pages/register";
 
 export default function App() {
-
     return (
         <BrowserRouter>
             <Provider store={store}>
@@ -28,6 +28,7 @@ export default function App() {
                     <Route path="lists/rank/:id" element={<Ranker />} />
                     <Route path="lists/view/:id" element={<ListInfo />} />
                     <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
                 </Route>
             </Routes>
             </Provider>

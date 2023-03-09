@@ -10,7 +10,7 @@ const NavBar = styled.nav`
     background: linear-gradient(to bottom right, #00a6c3, #00cd6d);
     height: 7.5vh;
     width: 100vw;
-    margin: auto;
+    margin: 0 0 0 0;
     border: solid 2px black;
     position: fixed;
     z-index: 1;
@@ -72,6 +72,9 @@ function BasicNavbar() {
                     </NavBarLink>
                     <NavBarLink>
                         <Link style={NavLink} to="/myApp/login">Login</Link>
+                    </NavBarLink>
+                    <NavBarLink>
+                        <Link style={NavLink} to="/myApp/register">Register</Link>
                     </NavBarLink>
                 </ul>
             </NavBar>
