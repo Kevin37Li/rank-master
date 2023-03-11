@@ -15,5 +15,6 @@ urlpatterns = [
     path('lists/create/', views.listCreate, name='listCreate'),
     path('get/lists/', views.getLists, name='getLists'),
     path('get/user/<username>', views.getUser, name='getUser'),
+    path('get/user/<username>/<list_id>', views.getRanking, name='getRanking'),
     path('', views.index, name='index'),
 ]

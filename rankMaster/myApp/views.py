@@ -1,5 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from pymongo import DESCENDING
@@ -80,7 +81,40 @@ def listView(request, list_id):
 def getUser(request, username):
     # fetch the username
     # 'rankings' and 'lists' **only** contains the list ID's, nothing else
-    return JsonResponse({ 'username': "John Snow", 'rankings': [], 'lists': [] })
+    try:
+        user = get_object_or_404(User, username=username)
+    except ObjectDoesNotExist:
+        return jsonResponseWithErrorMessage("No user {} does not exist".format(username))
+    profile, created = UserProfile.objects.get_or_create(user_id=user.id)
+    if request.method == 'GET':
+        return_profile = {}
+        profileSerializer = UserProfileSerializer(profile)
+        return_profile['username'] = profileSerializer.data['user']['username']
+        return_profile['first_name'] = profileSerializer.data['user']['first_name']
+        return_profile['last_name'] = profileSerializer.data['user']['last_name']
+        return_profile['email'] = profileSerializer.data['user']['email']
+        return_profile['lists'] = profileSerializer.data['id_lists']
+        # get all the rankings made by the user
+        return_profile['rankings'] = []
+        rankings = Rank.objects.filter(user_id = user.id)
+        rankingsSerializer = RankSerializer(rankings, many=True, context={'request': request})
+        for ranking in rankingsSerializer.data:
+            return_profile['rankings'].append({"list_id": ranking['id_list'], "list_title": ranking['title']})
+    return JsonResponse(return_profile)
+
+def getRanking(request, username, list_id):
+    # TODO: check if the user is logged in or wtv
+    user = get_object_or_404(User, username=username) # get the user with the username
+    rankings = Rank.objects.filter(user_id = user.id, id_list = list_id) # the ranks are linked to the user through the ID, NOT the username
+    serializer = RankSerializer(rankings, many=True, context={'request': request})
+    if len(serializer.data) == 0:
+        return jsonResponseWithErrorMessage("This user hasn't ranked this list")
+    returnRanking = {}
+    for key, val in serializer.data[0].items():
+        if key == "user_id":
+            continue
+        returnRanking[key] = val
+    return JsonResponse(returnRanking)
 
 '''
 handles GET request submitted to '/get/lists/<params>
@@ -190,53 +224,48 @@ def getLists(request):
     return HttpResponse("list items")
 
 # `/myApp/lists/rank/<ListID>` allows for a ranking to be made out of a list
-@api_view(['GET', 'POST'])
 def listRank(request, list_id):
+    if request.method == 'GET':
+        return render(request, "index.html")
+    elif request.method == 'POST':
+        payload = json.loads(request.body)
+        # extracting the useful parts
+        list_id = payload['_id']
+        ranker_username = payload.get('user', None)
+        ranking = payload['items']
+        # update the global ranking vote using Borda count
+        try:
+            objId = ObjectId(list_id)
+        except InvalidId:
+            return jsonResponseWithErrorMessage('This id is invalid')
+        listDoc = getListCollection().find_one({"_id": objId})
+        if listDoc is None:
+            return jsonResponseWithErrorMessage("We can't find the list with id = {}".format(request.GET['id']))
+        if 'items' not in listDoc:
+            return jsonResponseWithErrorMessage("The document of the list is corrupted (no 'items' field)")
+        updatedItems = listDoc['items']
+        for score, item in enumerate(list(reversed(ranking))):
+            if item not in listDoc['items']:
+                return jsonResponseWithErrorMessage("The given ranking contains items not in the original list")
+            updatedItems[item] += score
+        # print(updatedItems)
+        result = getListCollection().update_one({'_id': objId}, {'$set': { 'items': updatedItems }}) # write into the DB
+        # print("matched {}, modified {}".format(result.matched_count, result.modified_count))
 
-    @permission_classes([AllowAny if request.method == 'GET' else IsAuthenticated])
-    def inner_view(request, list_id):
-        if request.method == 'GET':
-            return render(request, "index.html")
-        elif request.method == 'POST':
-            payload = json.loads(request.body)
-            # extracting the useful parts
-            list_id = payload['_id']
-            ranker_username = payload['user']
-            ranking = payload['items']
-            # update the global ranking vote using Borda count
-            try:
-                objId = ObjectId(list_id)
-            except InvalidId:
-                return jsonResponseWithErrorMessage('This id is invalid')
-            listDoc = getListCollection().find_one({"_id": objId})
-            if listDoc is None:
-                return jsonResponseWithErrorMessage("We can't find the list with id = {}".format(request.GET['id']))
-            if 'items' not in listDoc:
-                return jsonResponseWithErrorMessage("The document of the list is corrupted (no 'items' field)")
-            updatedItems = listDoc['items']
-            for score, item in enumerate(list(reversed(ranking))):
-                if item not in listDoc['items']:
-                    return jsonResponseWithErrorMessage("The given ranking contains items not in the original list")
-                updatedItems[item] += score
-            # print(updatedItems)
-            result = getListCollection().update_one({'_id': objId}, {'$set': { 'items': updatedItems }}) # write into the DB
-            # print("matched {}, modified {}".format(result.matched_count, result.modified_count))
+        if result.modified_count <= 0:
+            return jsonResponseWithErrorMessage("Writing to Mongo DB somehow failed.")
 
-            # store inside sql database
+        # store inside sql database
+        if ranker_username is not None and ranker_username == request.user.id:
+            print("There should be a write to the user DB")
             rank = Rank()
             rank.user_id = request.user.id
             rank.title = payload['title']
             rank.id_list = list_id
             rank.ranking_list = ranking
             rank.save()
-
-
-            return Response('success')
-
-            
-
         
-    return inner_view(request, list_id)
+        return HttpResponse('success')
 
 # `/myApp/lists/create` should allow a logged-in user to create a list
 def listCreate(request):
