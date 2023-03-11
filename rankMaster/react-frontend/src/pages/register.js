@@ -12,8 +12,8 @@ import Login from "./login";
 const RegisterBox = styled.div`
   border-radius: 15px;
   border: 3px solid;
-  margin: 10vh 35vw auto 35vw;
-  height: 60vh;
+  margin: 5vh 35vw auto 35vw;
+  height: 85vh;
   text-align: center;
   background-color: white;
   padding: 0 2vw 0 2vw;
@@ -22,7 +22,7 @@ const RegisterBox = styled.div`
 const RegisterEntry = {
     width: "90%",
     height: "10%",
-    margin: "0vh 1vw 0vh 1vw",
+    margin: "1vh 1vw 0vh 1vw",
     backgroundColor: "white",
 };
 

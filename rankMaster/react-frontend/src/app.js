@@ -13,6 +13,7 @@ import ListInfo from "./pages/listInfo";
 import store from "./redux/redux";
 import {Provider, useSelector} from "react-redux";
 import Register from "./pages/register";
+import Profile from "./pages/profile";
 
 export default function App() {
     return (
@@ -29,6 +30,7 @@ export default function App() {
                     <Route path="lists/view/:id" element={<ListInfo />} />
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
+                    <Route path="profile" element={<Profile />} />
                 </Route>
             </Routes>
             </Provider>

@@ -54,6 +54,9 @@ function BasicNavbar() {
                     <NavBarLink>
                         <Link style={NavLink} to="/myApp/lists">My Lists</Link>
                     </NavBarLink>
+                    <NavBarLink>
+                        <Link style={NavLink} to="/myApp/profile">Profile</Link>
+                    </NavBarLink>
                 </ul>
             </NavBar>
         )
