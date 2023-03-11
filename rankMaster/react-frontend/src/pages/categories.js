@@ -51,23 +51,6 @@ function Categories() {
         getCategoryData();
     }, []);
 
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const moviesResults = await axios(
-    //             '/myApp/get/lists/?category=Movies',
-    //         );
-    //         const musicResults = await axios(
-    //             '/myApp/get/lists/?category=Music',
-    //         );
-    //
-    //         console.log(moviesResults.data.payload);
-    //         setMovieItems(moviesResults.data.payload);
-    //         setMusicItems(musicResults.data.payload);
-    //     };
-    //
-    //     fetchData();
-    // }, []);
-
     const handleClick = (id) => { console.log(String(id), ' clicked!')};
 
     let navigate = useNavigate();
