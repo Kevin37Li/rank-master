@@ -6,9 +6,9 @@ import {useSelector} from "react-redux";
 
 function ListMaker() {
     const curr_user = useSelector(state => state.username);
-    console.log(curr_user);
+    // console.log(curr_user);
     const login = useSelector(state => state.checkLogin);
-    console.log(login);
+    // console.log(login);
 
     const [formItemFields, setFormItemFields] = useState([
         { },
