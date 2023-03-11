@@ -3,15 +3,15 @@ import styled from 'styled-components';
 import {TextField, Button, Divider}from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import {useDispatch, useSelector} from "react-redux";
-import {storeCheckLogin, storeUsername} from "../redux/redux";
+import {storeCheckLogin, storeJWT, storeUsername} from "../redux/redux";
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 const LoginBox = styled.div`
   border-radius: 15px;
   border: 3px solid;
-  margin: 10vh 35vw auto 35vw;
-  height: 60vh;
+  margin: 5vh 35vw 5vh 35vw;
+  height: 70vh;
   text-align: center;
   background-color: white;
   padding: 0 2vw 0 2vw;
@@ -20,9 +20,8 @@ const LoginBox = styled.div`
 const LoginEntry = {
     width: "90%",
     height: "10%",
-    margin: "0vh 1vw 0vh 1vw",
+    margin: "1vh 1vw 0vh 1vw",
     backgroundColor: "white",
-    color: "white"
 };
 
 const LoginDivider = {
@@ -53,9 +52,10 @@ const Login = () => {
             const request = {username: username, password: password}
             await axios.post("/auth/jwt/create", request)
             .then((res) => {
-                console.log(res.data)
+                console.log(res.data.access)
                 dispatch(storeUsername(username));
                 dispatch(storeCheckLogin(true));
+                dispatch(storeJWT(JSON.stringify(res.data)))
                 navigation('/myApp', { replace: true });
             }).catch((error) => {
                 console.log(error);

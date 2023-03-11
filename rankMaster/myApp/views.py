@@ -8,7 +8,7 @@ from utils import getListCollection, jsonResponseWithErrorMessage
 
 import time
 import json
-
+import re
 
 # import serializers for converting between model instances and python dicts
 from .serializers import UserProfileSerializer, RankSerializer
@@ -42,7 +42,7 @@ def register(request):
 
 # `/myApp/login` allows the user to log in
 def login(request):
-    return HttpResponse("Login Page")
+    return render(request, "index.html")
 
 @api_view(['GET', 'PUT'])
 def userProfile(request, username):
@@ -75,6 +75,12 @@ def userRanking(request, username):
 # `/myApp/lists/view/<ListID>` shows the global ranking of the list with `<ListID>`
 def listView(request, list_id):
     return render(request, "index.html")
+
+# handles GET request submitted to /get/user/<username>
+def getUser(request, username):
+    # fetch the username
+    # 'rankings' and 'lists' **only** contains the list ID's, nothing else
+    return JsonResponse({ 'username': "John Snow", 'rankings': [], 'lists': [] })
 
 '''
 handles GET request submitted to '/get/lists/<params>
@@ -154,8 +160,33 @@ def getLists(request):
         cursor.close()
         return setPayload(matchedResults)
     elif containsArg is not None:
-        # TODO: gotta figure out how to look for partial matches
-        pass
+        print(containsArg)
+        # split the containsArg into words and search by these words (matches are case-insensitive)
+        search_strings = containsArg.split()
+        search_strings = ["(^| )" + word + "($| )" for word in search_strings]
+        print('|'.join(search_strings))
+        regexQuery = re.compile('|'.join(search_strings), re.IGNORECASE)
+        # search in title or in username
+        cursor = getListCollection().find({ "$or": [
+            { 'user': regexQuery },
+            { 'title': regexQuery }
+        ] }, projection = ['title', 'createdAt', 'user'], sort = [('createdAt', DESCENDING)])
+        if len(cursor.distinct("_id")) == 0:
+            return jsonResponseWithErrorMessage("We can't find any lists that resembles the search string")
+        cursorLength = len(cursor.distinct("_id"))
+        if cursorLength < (pageArg - 1) * resultsPerPage:
+            return jsonResponseWithErrorMessage("The page argument is too large")
+        elif cursorLength == 0:
+            return jsonResponseWithErrorMessage("There are no public lists under this categories yet")
+        cursor = cursor.skip((pageArg - 1) * resultsPerPage)
+        matchedResults = []
+        for match in cursor:
+            if len(matchedResults) >= resultsPerPage:
+                break
+            match['_id'] = str(match['_id'])
+            matchedResults.append(match)
+        cursor.close()
+        return setPayload(matchedResults)
     return HttpResponse("list items")
 
 # `/myApp/lists/rank/<ListID>` allows for a ranking to be made out of a list

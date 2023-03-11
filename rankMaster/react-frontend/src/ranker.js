@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import {list_of_lists} from "./lists";
 import './ranker.css';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 let curr_list = [];
 
@@ -25,11 +26,19 @@ function shuffle(a) {
     return a;
 }
 
+const mapStateToProps = state => {
+    return {
+        checkLogin: state.checkLogin
+    }
+}
+
 class Ranker extends React.Component {
     constructor(props) {
         super(props);
 
         let id = window.location.pathname.split('/').at(-1);
+
+        // console.log(this.props.checkLogin);
 
         // curr_list = shuffle(getList(id));
 
@@ -86,6 +95,7 @@ class Ranker extends React.Component {
     }
 
     updateBackend = (final_list) => {
+        // const login = useSelector(state => state.checkLogin);
         // console.log(this.state.items);
         // console.log(final_list.length);
         // let new_items = this.state.items;
@@ -100,6 +110,9 @@ class Ranker extends React.Component {
         // console.log(new_items);
         let new_payload = this.state.payload;
         new_payload.items = final_list;
+        if (!this.props.checkLogin) {
+            delete new_payload['user'];
+        }
         // this.setState({ items: new_items, payload: new_payload }, console.log(this.state.payload));
         this.setState({ payload: new_payload }, console.log(this.state.payload));
         let post_endpoint = '/myApp/lists/rank/' + new_payload._id;
@@ -286,4 +299,5 @@ class Ranker extends React.Component {
     }
 }
 
-export default Ranker;
+// export default Ranker;
+export default connect(mapStateToProps)(Ranker)
