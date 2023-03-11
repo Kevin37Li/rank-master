@@ -14,5 +14,6 @@ urlpatterns = [
     path('lists/view/<list_id>', views.listView, name='listView'),
     path('lists/create', views.listCreate, name='listCreate'),
     path('get/lists/', views.getLists, name='getLists'),
+    path('get/user/<username>', views.getUser, name='getUser')
     path('', views.index, name='index'),
 ]

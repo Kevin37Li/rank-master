@@ -65,6 +65,12 @@ def userRanking(request, user_id, list_id):
 def listView(request, list_id):
     return render(request, "index.html")
 
+# handles GET request submitted to /get/user/<username>
+def getUser(request, username):
+    # fetch the username
+    # 'rankings' and 'lists' **only** contains the list ID's, nothing else
+    return JsonResponse({ 'username': "John Snow", 'rankings': [], 'lists': [] })
+
 '''
 handles GET request submitted to '/get/lists/<params>
 params are normal GET parameters. Accepted parameters include:
