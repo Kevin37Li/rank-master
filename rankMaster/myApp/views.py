@@ -290,6 +290,8 @@ def listCreate(request):
                 public = True
             elif key == "category":
                 category = val
+            elif key == "user":
+                userId = val
         # ensure the items have unique names 
         if len(items) != len(set(items)):
             return jsonResponseWithErrorMessage("There are multiple items with the same name.")

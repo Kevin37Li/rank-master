@@ -28,7 +28,8 @@ function shuffle(a) {
 
 const mapStateToProps = state => {
     return {
-        checkLogin: state.checkLogin
+        checkLogin: state.checkLogin,
+        username: state.username
     }
 }
 
@@ -112,6 +113,8 @@ class Ranker extends React.Component {
         new_payload.items = final_list;
         if (!this.props.checkLogin) {
             delete new_payload['user'];
+        } else {
+            new_payload.user = this.props.username;
         }
         // this.setState({ items: new_items, payload: new_payload }, console.log(this.state.payload));
         this.setState({ payload: new_payload }, console.log(this.state.payload));

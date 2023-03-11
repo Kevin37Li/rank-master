@@ -45,6 +45,8 @@ function ListInfo() {
             <h1>{listObj.title}</h1>
             <h2>Category: {listObj.category}</h2>
             <h2>ID: {listObj._id}</h2>
+            <h2>Created by: {listObj.user}</h2>
+            <h2>Created on: {new Date(listObj.createdAt/1000000).toLocaleDateString()}</h2>
             <div>
                 <h2>Global Ranking: </h2>
                 <ol>
