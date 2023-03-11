@@ -186,7 +186,7 @@ def listRank(request, list_id):
         payload = json.loads(request.body)
         # extracting the useful parts
         list_id = payload['_id']
-        ranker_username = payload['user']
+        ranker_username = payload.get('user', None)
         ranking = payload['items']
         # update the global ranking vote using Borda count
         try:
