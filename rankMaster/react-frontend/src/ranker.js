@@ -29,7 +29,8 @@ function shuffle(a) {
 const mapStateToProps = state => {
     return {
         checkLogin: state.checkLogin,
-        username: state.username
+        username: state.username,
+        jwt: state.jwt
     }
 }
 
@@ -120,7 +121,15 @@ class Ranker extends React.Component {
         this.setState({ payload: new_payload }, console.log(this.state.payload));
         let post_endpoint = '/myApp/lists/rank/' + new_payload._id;
         // console.log(post_endpoint);
-        axios.post(post_endpoint, new_payload);
+        // axios.post(post_endpoint, new_payload);
+        // axios.post(post_endpoint, new_payload, {
+        //     headers: {
+        //         "Authorization": "Bearer " + JSON.parse(this.props.jwt).access
+        //     }
+        // });
+        let access_token = JSON.parse(this.props.jwt).access;
+        console.log(access_token);
+        axios({url: post_endpoint, data: new_payload, method: "post", headers: {"Authorization": "Bearer " + access_token}})
     }
 
     changeItems = () => {

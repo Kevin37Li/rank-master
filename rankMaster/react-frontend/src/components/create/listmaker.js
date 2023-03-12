@@ -9,6 +9,7 @@ function ListMaker() {
     // console.log(curr_user);
     const login = useSelector(state => state.checkLogin);
     // console.log(login);
+    const curr_jwt = useSelector(state => state.jwt);
 
     const [formItemFields, setFormItemFields] = useState([
         { },
@@ -61,7 +62,13 @@ function ListMaker() {
             }
         }
         console.log(formData);
-        axios.post('/myApp/lists/create/', formData).then(res => {
+        console.log(JSON.parse(curr_jwt));
+        console.log(JSON.parse(curr_jwt).access);
+        axios.post('/myApp/lists/create/', formData, {
+            headers: {
+                "Authorization": "Bearer " + JSON.parse(curr_jwt).access
+            }
+        }).then(res => {
             routeChange(`/myApp/lists/view/${res.data.id}`);
         });
     }
