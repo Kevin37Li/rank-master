@@ -1,46 +1,45 @@
 import {useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import axios from "axios";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {Button, TextField} from "@mui/material";
+import {Button, Card, TextField, CardContent} from "@mui/material";
 import styled from "styled-components";
 
-const ButtonStyle = {
-    margin: "2vh 0 2vh 0",
-}
-
 const ProfileBox = styled.div`
-  border-radius: 15px;
-  border: 3px solid rgba(255, 255, 255, 0.587);
-  margin: 10vh 35vw auto 35vw;
+  margin: 10vh 30vw auto 0;
   height: 70vh;
+  padding: 5vh 10vw 0vh 0vw;
   text-align: center;
-  padding: 2vh 2vw 2vh 2vw;
 `;
 
-const ProfileP = styled.p`
+const ProfileH1 = styled.h1`
+  font-family: Andale Mono, monospace;
+  color: #09426B;
   color: white;
-  font-size: 15px;
+  font-weight: bold;
+  margin-left: 10vw;
 `;
 
 const ProfileEntry = {
-    width: "90%",
-    height: "10%",
-    margin: "0vh 1vw 0vh 1vw",
+    width: "50%",
+    height: "20%",
+    margin: "10vh 1vw 1vh 1vw",
     backgroundColor: "white",
-    color: "white"
+    color: "black"
 };
 
 const Profile = () => {
     const jwt = useSelector(state => state.jwt);
-
-    const [data, setData] = React.useState("");
+    const username = useSelector(state => state.username);
+    const [email, setEmail] = React.useState("");
+    const [firstName, setFirstName] = React.useState("");
+    const [lastName, setLastName] = React.useState("");
+    const [data, setData] = React.useState([]);
 
     useEffect(() => {
         // call api or anything
         let res = fetch();
         console.log(res.data);
-    });
+    }, [email]);
 
     const fetch = async () => {
         let config = {
@@ -52,11 +51,15 @@ const Profile = () => {
             console.log(config);
             console.log(jwt);
             await axios({
-                url: "http://127.0.0.1:8000/myApp/user/profile/me",
+                url: "http://127.0.0.1:8000/myApp/get/user/" + username,
                 method: "get",
                 headers: config
             }).then((res) => {
                 console.log(res);
+                setFirstName(res.data.first_name);
+                setLastName(res.data.last_name);
+                setEmail(res.data.email);
+                setData(res.data.rankings);
                 console.log("success");
                 return "Hello";
             }).catch((error) => {
@@ -65,20 +68,52 @@ const Profile = () => {
         }
     };
 
+    const renderCards = async (current) => {
+
+        let config = {
+            'Content-Type':'application/json',
+            Authorization: `Bearer ${JSON.parse(jwt).access}`,
+        }
+
+        let id = current.list_id;
+
+        console.log("http://127.0.0.1:8000/myApp/get/user/" + username + "/" + id);
+        await axios({
+            url: "http://127.0.0.1:8000/myApp/get/user/" + username + "/" + id,
+            method: "get",
+            headers: config
+        }).then((res) => {
+            console.log(res);
+            console.log("success fetch ranking");
+            console.log(res.data.ranking_list.toString());
+            console.log(typeof res.data.ranking_list.toString());
+
+            alert (res.data.ranking_list.toString());
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
     return (
         <div>
             <meta charSet="UTF-8"></meta>
             <ProfileBox>
-                <h2><AccountCircleIcon color={"primary"} fontSize={"large"}/></h2>
-                <ProfileP>First Name</ProfileP>
-                <TextField disabled={true} id="first" label="First Name" style={ProfileEntry}/>
-                <ProfileP>LAst Name</ProfileP>
-                <TextField disabled={true} id="last" label="Last Name" style={ProfileEntry}/>
-                <ProfileP>Email</ProfileP>
-                <TextField disabled={true} id="email" label="Email" style={ProfileEntry}/>
-                <ProfileP>Username</ProfileP>
-                <TextField disabled={true} id="username" label="Username" style={ProfileEntry}/>
-                <Button style={ButtonStyle} variant="contained" onClick={() => {}} >Edit</Button>
+                <ProfileH1>Hi! {firstName} {lastName}! Your rankings are: </ProfileH1>
+                {data.map((entry)=>{
+                    let id = entry.list_id;
+                    console.log(id);
+
+
+                    return(
+                        <Card style={ProfileEntry}>
+                            <CardContent>
+                                <p>{entry.list_title}:</p>
+                                <Button onClick={async () => renderCards(entry)}>Your Ranking</Button>
+                            </CardContent>
+                        </Card>
+                    )
+                    })
+                }
             </ProfileBox>
         </div>
     );
