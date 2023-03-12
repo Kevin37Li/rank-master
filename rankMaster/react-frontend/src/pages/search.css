@@ -80,3 +80,7 @@ input[type=text2]:focus {
     font-family: Andale Mono, monospace;
     font-size: 1vw;
 }
+
+.horizontal {
+    width: 80vw;
+}

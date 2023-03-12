@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
+import './listInfo.css';
 import axios from 'axios';
 
 function ListInfo() {
@@ -41,23 +42,24 @@ function ListInfo() {
     }
 
     return (
-        <div>
-            <h1>{listObj.title}</h1>
-            <h2>Category: {listObj.category}</h2>
-            <h2>ID: {listObj._id}</h2>
-            <h2>Created by: {listObj.user}</h2>
-            <h2>Created on: {new Date(listObj.createdAt/1000000).toLocaleDateString()}</h2>
-            <div>
-                <h2>Global Ranking: </h2>
-                <ol>
-                    {listItems.map(c => <li key={c}>{c}</li>)}
-                </ol>
-            </div>
-            <button onClick={() => routeChange(`/myApp/lists/rank/${listObj._id}`)}>
+        <div className="listobj">
+            <h1 className="listobjtitle">{listObj.title}</h1>
+                <h2>Category: {listObj.category}</h2>
+                <h2>ID: {listObj._id}</h2>
+                <h2>Created by: {listObj.user}</h2>
+                <h2>Created on: {new Date(listObj.createdAt/1000000).toLocaleDateString()}</h2>
+                <div>
+                    <h2>Global Ranking: </h2>
+                    <ol>
+                        {listItems.map(c => <li key={c}>{c}</li>)}
+                    </ol>
+                </div>
+                <button className="ranklistbutton" onClick={() => routeChange(`/myApp/lists/rank/${listObj._id}`)}>
                 Rank This List!
-            </button>
-        </div>
-    );
+                </button>
+            </div>
+        );
+
 }
 
 export default ListInfo;

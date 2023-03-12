@@ -110,8 +110,10 @@ function Search() {
                                 </ul>
                             </div>
                         </div>
-                        <hr></hr>
-                        {rules}
+                        <div className="horizontal">
+                            <hr></hr>
+                            {rules}
+                        </div>
                     </div>
                 </div>
             </div>

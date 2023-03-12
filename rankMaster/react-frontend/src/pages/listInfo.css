@@ -1,0 +1,28 @@
+/* listinfo.css */
+
+.listobj {
+    color: rgba(255, 255, 255, 0.587);
+    margin-left: 10vw;
+    padding-top: 15vh;
+}
+
+.listobjtitle {
+    color: white;
+}
+
+.ranklistbutton {
+    background: linear-gradient(to bottom right, #00a6c3, #00cd6d);
+    padding: 10px;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    margin-left: 0.5vw;
+    width: 10vw;
+}
+
+.ranklistbutton:hover {
+    background-color: #fff48e;
+    color: black;
+    transition: 0.5s;
+
+}
