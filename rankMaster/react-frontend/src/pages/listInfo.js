@@ -42,22 +42,26 @@ function ListInfo() {
     }
 
     return (
-        <div className="listobj">
-            <h1 className="listobjtitle">{listObj.title}</h1>
-                <h2>Category: {listObj.category}</h2>
-                <h2>ID: {listObj._id}</h2>
-                <h2>Created by: {listObj.user}</h2>
-                <h2>Created on: {new Date(listObj.createdAt/1000000).toLocaleDateString()}</h2>
-                <div>
-                    <h2>Global Ranking: </h2>
-                    <ol>
-                        {listItems.map(c => <li key={c}>{c}</li>)}
-                    </ol>
+        <div className="containerlistobj">
+            <div className="listobjscreen">
+                <div className="listobj">
+                    <h1 className="listobjtitle">{listObj.title}</h1>
+                    <h2>Category: {listObj.category}</h2>
+                    <h2>ID: {listObj._id}</h2>
+                    <h2>Created by: {listObj.user}</h2>
+                    <h2>Created on: {new Date(listObj.createdAt/1000000).toLocaleDateString()}</h2>
+                    <div>
+                        <h2>Global Ranking: </h2>
+                        <ol>
+                            {listItems.map(c => <li key={c}>{c}</li>)}
+                        </ol>
+                    </div>
+                    <button className="ranklistbutton" onClick={() => routeChange(`/myApp/lists/rank/${listObj._id}`)}>
+                        Rank This List!
+                    </button>
                 </div>
-                <button className="ranklistbutton" onClick={() => routeChange(`/myApp/lists/rank/${listObj._id}`)}>
-                Rank This List!
-                </button>
             </div>
+        </div>
         );
 
 }
