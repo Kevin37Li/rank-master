@@ -272,7 +272,7 @@ def listRank(request, list_id):
             rank.user_id = request.user.id
             rank.title = payload['title']
             rank.id_list = list_id
-            rank.ranking_list = ranking
+            rank.ranking_list = json.dumps(ranking)
             rank.save()
         
         return HttpResponse('success')
