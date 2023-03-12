@@ -3,6 +3,9 @@ import {list_of_lists} from "./lists";
 import './ranker.css';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import { useNavigate } from "react-router-dom";
+// import { withNavigation } from 'react-navigation';
+import {withRouter} from './withRouter';
 
 let curr_list = [];
 
@@ -26,19 +29,29 @@ function shuffle(a) {
     return a;
 }
 
-const mapStateToProps = state => {
-    return {
-        checkLogin: state.checkLogin,
-        username: state.username,
-        jwt: state.jwt
-    }
-}
+// const mapStateToProps = state => {
+//     return {
+//         checkLogin: state.checkLogin,
+//         username: state.username,
+//         jwt: state.jwt
+//     }
+// }
+
+// function Global() {
+//     const navigation = useNavigation();
+//     return (
+//         <button className="reset" onClick={() => routeChange(`/myApp/lists/view/${res.data.id}`)}>VIEW GLOBAL</button>
+//     );
+// }
+
 
 class Ranker extends React.Component {
     constructor(props) {
         super(props);
 
         let id = window.location.pathname.split('/').at(-1);
+
+        this.yourFunctionHere=this.yourFunctionHere.bind(this);
 
         this.state = {
             started: false,
@@ -94,34 +107,35 @@ class Ranker extends React.Component {
         });
         let new_payload = this.state.payload;
         new_payload.items = final_list;
-        if (!this.props.checkLogin) {
-            delete new_payload['user'];
-        } else {
-            new_payload.user = this.props.username;
-        }
+        delete new_payload['user'];
+        // if (!this.props.checkLogin) {
+        //     delete new_payload['user'];
+        // } else {
+        //     new_payload.user = this.props.username;
+        // }
         // this.setState({ items: new_items, payload: new_payload }, console.log(this.state.payload));
         this.setState({ payload: new_payload }, console.log(this.state.payload));
         let post_endpoint = '/myApp/lists/rank/' + new_payload._id;
         // console.log(post_endpoint);
-        // axios.post(post_endpoint, new_payload);
+        axios.post(post_endpoint, new_payload);
         // axios.post(post_endpoint, new_payload, {
         //     headers: {
         //         "Authorization": "Bearer " + JSON.parse(this.props.jwt).access
         //     }
         // });
-        if (!this.props.checkLogin) {
-            // not logged in, no jwt needed
-            axios.post(post_endpoint, new_payload);
-        } else {
-            let access_token = JSON.parse(this.props.jwt).access;
-            console.log(access_token);
-            // axios({url: post_endpoint, data: new_payload, method: "post", headers: {"Authorization": "Bearer " + access_token}})
-            axios.post(post_endpoint, new_payload, {
-                headers: {
-                    "Authorization": "Bearer " + access_token
-                }
-            });
-        }
+        // if (!this.props.checkLogin) {
+        //     // not logged in, no jwt needed
+        //     axios.post(post_endpoint, new_payload);
+        // } else {
+        //     let access_token = JSON.parse(this.props.jwt).access;
+        //     console.log(access_token);
+        //     // axios({url: post_endpoint, data: new_payload, method: "post", headers: {"Authorization": "Bearer " + access_token}})
+        //     axios.post(post_endpoint, new_payload, {
+        //         headers: {
+        //             "Authorization": "Bearer " + access_token
+        //         }
+        //     });
+        // }
     }
 
     changeItems = () => {
@@ -255,6 +269,10 @@ class Ranker extends React.Component {
         window.location.href = '/myApp/lists/view/' + this.state.id;
     }
 
+    yourFunctionHere()
+    {
+        this.props.navigate(`/myApp/lists/view/` + this.state.id);
+    }
 
     render() {
         // if the process ended, say you are done & list them in the right order
@@ -268,7 +286,9 @@ class Ranker extends React.Component {
                             <h2>Finished!</h2>
                             <ol className="resultlistitems">{listItems}</ol>
                             <button className="reset" onClick={() => this.resetList()}>RESET</button>
-                            <button className="reset" onClick={() => this.handleViewClick()}>VIEW GLOBAL</button>
+                            {/*{()=>{this.props.navigation.navigate('Page4')}}*/}
+                            {/*<button className="reset" onClick={() => this.handleViewClick()}>VIEW GLOBAL</button>*/}
+                            <button className="reset" onClick={() => this.yourFunctionHere()}>VIEW GLOBAL</button>
                         </div>
                     </div>
                 </div>
@@ -304,4 +324,6 @@ class Ranker extends React.Component {
 }
 
 // export default Ranker;
-export default connect(mapStateToProps)(Ranker)
+// export default connect(mapStateToProps)(Ranker)
+// export default withNavigation(Ranker);
+export default withRouter(Ranker);
