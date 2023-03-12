@@ -29,7 +29,8 @@ function shuffle(a) {
 const mapStateToProps = state => {
     return {
         checkLogin: state.checkLogin,
-        username: state.username
+        username: state.username,
+        jwt: state.jwt
     }
 }
 
@@ -38,10 +39,6 @@ class Ranker extends React.Component {
         super(props);
 
         let id = window.location.pathname.split('/').at(-1);
-
-        // console.log(this.props.checkLogin);
-
-        // curr_list = shuffle(getList(id));
 
         this.state = {
             started: false,
@@ -66,10 +63,6 @@ class Ranker extends React.Component {
             })
             .then((data) => {
                 // successful got the data
-                // console.log(data);
-                // console.log(data.payload);
-                // console.log(Object.entries(data.payload.items));
-                // console.log(typeof Object.keys(data.payload.items));
                 curr_list = shuffle(Object.keys(data.payload.items))
                 this.setState({ lists: [[curr_list, 0]], items: data.payload.items, payload: data.payload});
             });
@@ -96,19 +89,9 @@ class Ranker extends React.Component {
     }
 
     updateBackend = (final_list) => {
-        // const login = useSelector(state => state.checkLogin);
-        // console.log(this.state.items);
-        // console.log(final_list.length);
-        // let new_items = this.state.items;
-        // let curr_num = 1;
-        // for (let i = 0; i < final_list.length; i++) {
-        //     // text += cars[i] + "<br>";
-        //     let curr_key = final_list[i];
-        //     let new_val = new_items[curr_key] + curr_num;
-        //     new_items[curr_key] = new_val;
-        //     curr_num++;
-        // }
-        // console.log(new_items);
+        final_list = final_list.filter(function( element ) {
+            return element !== undefined;
+        });
         let new_payload = this.state.payload;
         new_payload.items = final_list;
         if (!this.props.checkLogin) {
@@ -120,7 +103,25 @@ class Ranker extends React.Component {
         this.setState({ payload: new_payload }, console.log(this.state.payload));
         let post_endpoint = '/myApp/lists/rank/' + new_payload._id;
         // console.log(post_endpoint);
-        axios.post(post_endpoint, new_payload);
+        // axios.post(post_endpoint, new_payload);
+        // axios.post(post_endpoint, new_payload, {
+        //     headers: {
+        //         "Authorization": "Bearer " + JSON.parse(this.props.jwt).access
+        //     }
+        // });
+        if (!this.props.checkLogin) {
+            // not logged in, no jwt needed
+            axios.post(post_endpoint, new_payload);
+        } else {
+            let access_token = JSON.parse(this.props.jwt).access;
+            console.log(access_token);
+            // axios({url: post_endpoint, data: new_payload, method: "post", headers: {"Authorization": "Bearer " + access_token}})
+            axios.post(post_endpoint, new_payload, {
+                headers: {
+                    "Authorization": "Bearer " + access_token
+                }
+            });
+        }
     }
 
     changeItems = () => {

@@ -1,6 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
+from rest_framework_simplejwt.backends import TokenBackend
 from bson.objectid import ObjectId
 from bson.errors import InvalidId
 from pymongo import DESCENDING
@@ -10,6 +12,7 @@ from utils import getListCollection, jsonResponseWithErrorMessage
 import time
 import json
 import re
+import os
 
 # import serializers for converting between model instances and python dicts
 from .serializers import UserProfileSerializer, RankSerializer
@@ -256,13 +259,20 @@ def listRank(request, list_id):
             return jsonResponseWithErrorMessage("Writing to Mongo DB somehow failed.")
 
         # store inside sql database
-        if ranker_username is not None and ranker_username == request.user.id:
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        data = {'token': token}
+        try:
+            valid_data = TokenBackend(signing_key = settings.SECRET_KEY, algorithm='HS256').decode(token,verify=True)
+            request.user.id = valid_data['user_id']
+        except:
+            print("something went wrong and idk what it is")
+        if ranker_username is not None:
             print("There should be a write to the user DB")
             rank = Rank()
             rank.user_id = request.user.id
             rank.title = payload['title']
             rank.id_list = list_id
-            rank.ranking_list = ranking
+            rank.ranking_list = json.dumps(ranking)
             rank.save()
         
         return HttpResponse('success')

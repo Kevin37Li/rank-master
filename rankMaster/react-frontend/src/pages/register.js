@@ -68,10 +68,11 @@ const Register = () => {
             await axios.post("/auth/users/", request)
                 .then((res) => {
                     console.log(res.data)
-                    dispatch(storeUsername(username));
-                    dispatch(storeCheckLogin(true));
+                    // dispatch(storeUsername(username));
+                    // dispatch(storeCheckLogin(false));
                     navigation('/myApp', { replace: true });
-                    console.log("user created")
+                    console.log("user created");
+                    alert("Please log in again");
                 }).catch((error) => {
                     console.log(error);
                 });
