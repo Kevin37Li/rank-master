@@ -10,6 +10,7 @@ function ListMaker() {
     const login = useSelector(state => state.checkLogin);
     // console.log(login);
     const curr_jwt = useSelector(state => state.jwt);
+    // console.log(curr_jwt);
 
     const [formItemFields, setFormItemFields] = useState([
         { },

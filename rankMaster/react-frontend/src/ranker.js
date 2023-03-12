@@ -89,6 +89,9 @@ class Ranker extends React.Component {
     }
 
     updateBackend = (final_list) => {
+        final_list = final_list.filter(function( element ) {
+            return element !== undefined;
+        });
         let new_payload = this.state.payload;
         new_payload.items = final_list;
         if (!this.props.checkLogin) {
@@ -112,7 +115,12 @@ class Ranker extends React.Component {
         } else {
             let access_token = JSON.parse(this.props.jwt).access;
             console.log(access_token);
-            axios({url: post_endpoint, data: new_payload, method: "post", headers: {"Authorization": "Bearer " + access_token}})
+            // axios({url: post_endpoint, data: new_payload, method: "post", headers: {"Authorization": "Bearer " + access_token}})
+            axios.post(post_endpoint, new_payload, {
+                headers: {
+                    "Authorization": "Bearer " + access_token
+                }
+            });
         }
     }
 
