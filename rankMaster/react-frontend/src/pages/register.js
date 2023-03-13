@@ -17,6 +17,7 @@ const RegisterBox = styled.div`
   text-align: center;
   background-color: white;
   padding: 0 2vw 0 2vw;
+  overflow: scroll;
 `;
 
 const RegisterEntry = {
@@ -24,6 +25,7 @@ const RegisterEntry = {
     height: "10%",
     margin: "1vh 1vw 0vh 1vw",
     backgroundColor: "white",
+    padding: "6px",
 };
 
 const RegisterDivider = {
