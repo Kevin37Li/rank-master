@@ -69,7 +69,7 @@ const Login = () => {
             <LoginBox>
                 <h2>Login</h2>
                 <TextField required id="username" label="Username" style={LoginEntry} onChange={(event) => setUsername(event.target.value)}/>
-                <TextField required id="password" style={LoginEntry} label="Password" onChange={(event) => setPassword(event.target.value)}/>
+                <TextField required id="password" type="password" style={LoginEntry} label="Password" onChange={(event) => setPassword(event.target.value)}/>
                 <Button style={ButtonStyle} variant="contained" onClick={() => handleLogin()} >Login</Button>
                 <Divider style={LoginDivider}/>
                 <Button style={ButtonStyle} variant="contained">
