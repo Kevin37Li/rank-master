@@ -20,8 +20,9 @@ const LoginBox = styled.div`
 const LoginEntry = {
     width: "90%",
     height: "10%",
-    margin: "1vh 1vw 0vh 1vw",
+    margin: "1vh 1vw 1vh 1vw",
     backgroundColor: "white",
+    padding: "6px",
 };
 
 const LoginDivider = {
