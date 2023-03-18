@@ -9,6 +9,7 @@ pymongo = "*"
 djangorestframework = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
+axios = "*"
 
 [dev-packages]
 
