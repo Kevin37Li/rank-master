@@ -17,6 +17,7 @@ const RegisterBox = styled.div`
   text-align: center;
   background-color: white;
   padding: 0 2vw 0 2vw;
+  overflow: scroll;
 `;
 
 const RegisterEntry = {
@@ -24,6 +25,7 @@ const RegisterEntry = {
     height: "10%",
     margin: "1vh 1vw 0vh 1vw",
     backgroundColor: "white",
+    padding: "6px",
 };
 
 const RegisterDivider = {
@@ -85,8 +87,8 @@ const Register = () => {
             <RegisterBox>
                 <h2>Register</h2>
                 <TextField required id="username" label="Username" style={RegisterEntry} onChange={(event) => setUsername(event.target.value)}/>
-                <TextField required id="password" style={RegisterEntry} label="Password" onChange={(event) => setPassword(event.target.value)}/>
-                <TextField required id="confirmPassword" style={RegisterEntry} label="Confirm Password" onChange={(event) => setConfirmPassword(event.target.value)}/>
+                <TextField required id="password" type="password" style={RegisterEntry} label="Password" onChange={(event) => setPassword(event.target.value)}/>
+                <TextField required id="confirmPassword" type="password" style={RegisterEntry} label="Confirm Password" onChange={(event) => setConfirmPassword(event.target.value)}/>
                 <TextField required id="email" style={RegisterEntry} label="Email" onChange={(event) => setEmail(event.target.value)}/>
                 <TextField required id="firstName" style={RegisterEntry} label="First Name" onChange={(event) => setFirstName(event.target.value)}/>
                 <TextField required id="lastName" style={RegisterEntry} label="LastName" onChange={(event) => setLastName(event.target.value)}/>

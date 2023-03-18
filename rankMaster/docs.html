@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module myApp.views</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="myApp.html"><font color="#ffffff">myApp</font></a>.views</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/jeremytsai/Documents/UCLA%20Assignments/Year%204%20Q2/CS%20130/rank-master/rankMaster/myApp/views.py">/Users/jeremytsai/Documents/UCLA Assignments/Year 4 Q2/CS 130/rank-master/rankMaster/myApp/views.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-categoriesList"><strong>categoriesList</strong></a>(request)</dt><dd><tt>#&nbsp;Handles&nbsp;the&nbsp;`/myApp/categories`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;the&nbsp;categories&nbsp;page.<br>
+#&nbsp;The&nbsp;categories&nbsp;page&nbsp;shows&nbsp;all&nbsp;categories&nbsp;of&nbsp;lists.</tt></dd></dl>
+ <dl><dt><a name="-getLists"><strong>getLists</strong></a>(request)</dt><dd><tt>#handles&nbsp;GET&nbsp;request&nbsp;submitted&nbsp;to&nbsp;'/get/lists/&lt;params&gt;<br>
+#params&nbsp;are&nbsp;normal&nbsp;GET&nbsp;parameters.&nbsp;Accepted&nbsp;parameters&nbsp;include:<br>
+#-&nbsp;'id':&nbsp;id&nbsp;of&nbsp;the&nbsp;list&nbsp;in&nbsp;the&nbsp;db.&nbsp;If&nbsp;used,&nbsp;this&nbsp;should&nbsp;be&nbsp;the&nbsp;only&nbsp;parameter&nbsp;in&nbsp;&lt;params&gt;<br>
+#-&nbsp;'category':&nbsp;string&nbsp;of&nbsp;the&nbsp;category,&nbsp;can&nbsp;be&nbsp;used&nbsp;with&nbsp;'page'<br>
+#-&nbsp;'contains':&nbsp;NOT&nbsp;IMPLEMENTED&nbsp;yet,&nbsp;but&nbsp;should&nbsp;be&nbsp;used&nbsp;to&nbsp;look&nbsp;for&nbsp;titles&nbsp;that&nbsp;matches&nbsp;the&nbsp;string<br>
+#-&nbsp;'page':&nbsp;positive&nbsp;integer&nbsp;of&nbsp;the&nbsp;page&nbsp;number&nbsp;of&nbsp;the&nbsp;results,&nbsp;accepted&nbsp;only&nbsp;if&nbsp;'category'&nbsp;or&nbsp;'contains'&nbsp;are&nbsp;supplied<br>
+#returns:<br>
+#-&nbsp;if&nbsp;there&nbsp;is&nbsp;an&nbsp;error,&nbsp;the&nbsp;JSON&nbsp;would&nbsp;be&nbsp;of&nbsp;form:<br>
+#&nbsp;&nbsp;{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'error':&nbsp;{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'message':&nbsp;String&nbsp;//&nbsp;error&nbsp;message&nbsp;here<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+#&nbsp;&nbsp;}<br>
+#-&nbsp;if&nbsp;successful&nbsp;get&nbsp;with&nbsp;id,&nbsp;the&nbsp;returned&nbsp;JSON&nbsp;would&nbsp;be&nbsp;of&nbsp;form:<br>
+#&nbsp;&nbsp;{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'payload':&nbsp;Object<br>
+#&nbsp;&nbsp;}<br>
+#-&nbsp;if&nbsp;successful&nbsp;get&nbsp;with&nbsp;category&nbsp;or&nbsp;contains,&nbsp;the&nbsp;returned&nbsp;JSON&nbsp;would&nbsp;be&nbsp;of&nbsp;form:<br>
+#&nbsp;&nbsp;{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'payload':&nbsp;Object[]<br>
+#&nbsp;&nbsp;}<br>
+#-&nbsp;The&nbsp;object&nbsp;meant&nbsp;to&nbsp;represent&nbsp;the&nbsp;list&nbsp;would&nbsp;be&nbsp;of&nbsp;form:<br>
+#&nbsp;&nbsp;{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'_id':&nbsp;String,&nbsp;//&nbsp;the&nbsp;ID&nbsp;of&nbsp;the&nbsp;list<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'title':&nbsp;String,&nbsp;//&nbsp;the&nbsp;title&nbsp;of&nbsp;the&nbsp;list<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'createdAt':&nbsp;Integer,&nbsp;//&nbsp;the&nbsp;time&nbsp;at&nbsp;which&nbsp;the&nbsp;list&nbsp;is&nbsp;created&nbsp;in&nbsp;Unix&nbsp;time<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'user':&nbsp;String,&nbsp;//&nbsp;the&nbsp;username&nbsp;of&nbsp;the&nbsp;user&nbsp;who&nbsp;created&nbsp;the&nbsp;list<br>
+#&nbsp;&nbsp;}</tt></dd></dl>
+ <dl><dt><a name="-getRanking"><strong>getRanking</strong></a>(request, username, list_id)</dt><dd><tt>#This&nbsp;method&nbsp;handles&nbsp;GET&nbsp;request&nbsp;submitted&nbsp;to&nbsp;/get/user/&lt;username&gt;/&lt;list_id&gt;.&nbsp;This&nbsp;is&nbsp;to&nbsp;be&nbsp;used&nbsp;to&nbsp;render&nbsp;the&nbsp;ranking&nbsp;of&nbsp;a&nbsp;particular&nbsp;user&nbsp;on&nbsp;a&nbsp;particular&nbsp;list.<br>
+#If&nbsp;a&nbsp;user&nbsp;with&nbsp;ID&nbsp;username&nbsp;exists,&nbsp;we&nbsp;return&nbsp;a&nbsp;JSON&nbsp;like&nbsp;so:<br>
+#{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'title':&nbsp;String,&nbsp;//&nbsp;the&nbsp;title&nbsp;of&nbsp;the&nbsp;ranked&nbsp;list<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'id_list':&nbsp;String,&nbsp;//&nbsp;the&nbsp;ID&nbsp;of&nbsp;the&nbsp;ranked&nbsp;list<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'ranking_list':&nbsp;List[String],&nbsp;//&nbsp;an&nbsp;ordered&nbsp;list&nbsp;that&nbsp;is&nbsp;the&nbsp;ranking&nbsp;itself&nbsp;(first&nbsp;is&nbsp;ranked&nbsp;best)<br>
+#}<br>
+#If&nbsp;anything&nbsp;goes&nbsp;wrong,&nbsp;the&nbsp;returned&nbsp;JSON&nbsp;is&nbsp;of&nbsp;form:<br>
+#{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'error':&nbsp;String&nbsp;//&nbsp;the&nbsp;error&nbsp;message<br>
+#}<br>
+#'''</tt></dd></dl>
+ <dl><dt><a name="-getUser"><strong>getUser</strong></a>(request, username)</dt><dd><tt>#This&nbsp;method&nbsp;handles&nbsp;GET&nbsp;request&nbsp;submitted&nbsp;to&nbsp;/get/user/&lt;username&gt;.&nbsp;This&nbsp;is&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;rendering&nbsp;the&nbsp;profile&nbsp;page&nbsp;of&nbsp;the&nbsp;user.<br>
+#If&nbsp;a&nbsp;user&nbsp;with&nbsp;ID&nbsp;username&nbsp;exists,&nbsp;we&nbsp;return&nbsp;a&nbsp;JSON&nbsp;like&nbsp;so:<br>
+#{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'username':&nbsp;String,&nbsp;//&nbsp;the&nbsp;username&nbsp;the&nbsp;user&nbsp;has&nbsp;chosen<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'first_name':&nbsp;String,&nbsp;//&nbsp;the&nbsp;first&nbsp;name&nbsp;the&nbsp;user&nbsp;registered&nbsp;with<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'last_name':&nbsp;String,&nbsp;//&nbsp;the&nbsp;last&nbsp;name&nbsp;the&nbsp;user&nbsp;registered&nbsp;with<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'email':&nbsp;String,&nbsp;//&nbsp;the&nbsp;email&nbsp;the&nbsp;user&nbsp;registered&nbsp;with<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'lists':&nbsp;List[String],&nbsp;//&nbsp;a&nbsp;list&nbsp;of&nbsp;listIDs&nbsp;of&nbsp;the&nbsp;lists&nbsp;the&nbsp;user&nbsp;created<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'rankings':&nbsp;List[Object]&nbsp;//&nbsp;a&nbsp;list&nbsp;of&nbsp;objects&nbsp;containing&nbsp;attribute&nbsp;'list_id'&nbsp;and&nbsp;'list_title',&nbsp;which&nbsp;is&nbsp;the&nbsp;ID&nbsp;and&nbsp;title,&nbsp;respectively,&nbsp;of&nbsp;the&nbsp;list&nbsp;that&nbsp;the&nbsp;user&nbsp;ranked<br>
+#}<br>
+#If&nbsp;anything&nbsp;goes&nbsp;wrong,&nbsp;the&nbsp;returned&nbsp;JSON&nbsp;is&nbsp;of&nbsp;form:<br>
+#{<br>
+#&nbsp;&nbsp;&nbsp;&nbsp;'error':&nbsp;String&nbsp;//&nbsp;the&nbsp;error&nbsp;message<br>
+#}</tt></dd></dl>
+ <dl><dt><a name="-index"><strong>index</strong></a>(request)</dt><dd><tt>#&nbsp;Handles&nbsp;the&nbsp;`/myApp`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;the&nbsp;front&nbsp;page&nbsp;automatically</tt></dd></dl>
+ <dl><dt><a name="-listCreate"><strong>listCreate</strong></a>(request)</dt><dd><tt>#&nbsp;Handles&nbsp;the&nbsp;`/myApp/lists/create`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app&nbsp;when&nbsp;encountering&nbsp;a&nbsp;GET&nbsp;request,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;the&nbsp;create&nbsp;list&nbsp;page.<br>
+#This&nbsp;page&nbsp;should&nbsp;allow&nbsp;a&nbsp;logged-in&nbsp;user&nbsp;to&nbsp;create&nbsp;a&nbsp;list.<br>
+#The&nbsp;POST&nbsp;request&nbsp;handler&nbsp;at&nbsp;this&nbsp;endpoint&nbsp;expects&nbsp;a&nbsp;HTML&nbsp;form&nbsp;data&nbsp;in&nbsp;the&nbsp;body&nbsp;containing&nbsp;the&nbsp;key-value&nbsp;pairs.&nbsp;The&nbsp;keys&nbsp;should&nbsp;include:&nbsp;'title',<br>
+#'category',&nbsp;and&nbsp;'user'.&nbsp;The&nbsp;'title'&nbsp;should&nbsp;map&nbsp;to&nbsp;the&nbsp;title&nbsp;of&nbsp;the&nbsp;string.&nbsp;'category'&nbsp;should&nbsp;map&nbsp;to&nbsp;the&nbsp;category&nbsp;the&nbsp;list&nbsp;should&nbsp;belong&nbsp;to,&nbsp;and&nbsp;'user'&nbsp;should<br>
+#be&nbsp;the&nbsp;ID&nbsp;of&nbsp;the&nbsp;user&nbsp;creating&nbsp;the&nbsp;list.&nbsp;A&nbsp;variable&nbsp;of&nbsp;'item&lt;Number&gt;'&nbsp;keys&nbsp;should&nbsp;also&nbsp;be&nbsp;present,&nbsp;with&nbsp;the&nbsp;exact&nbsp;number&nbsp;equal&nbsp;to&nbsp;the&nbsp;number&nbsp;of&nbsp;items&nbsp;in&nbsp;the&nbsp;list.&nbsp;<br>
+#The&nbsp;'item&lt;Number&gt;'&nbsp;keys&nbsp;should&nbsp;map&nbsp;to&nbsp;a&nbsp;string&nbsp;that&nbsp;is&nbsp;the&nbsp;item&nbsp;itself.&nbsp;Finally,&nbsp;a&nbsp;'public'&nbsp;variable&nbsp;may&nbsp;or&nbsp;may&nbsp;not&nbsp;be&nbsp;present.&nbsp;If&nbsp;present,&nbsp;it&nbsp;would&nbsp;indicate&nbsp;the&nbsp;<br>
+#list&nbsp;is&nbsp;to&nbsp;be&nbsp;made&nbsp;public.&nbsp;Upon&nbsp;success,&nbsp;a&nbsp;JSON&nbsp;response&nbsp;with&nbsp;a&nbsp;single&nbsp;'id'&nbsp;attribute&nbsp;equal&nbsp;to&nbsp;the&nbsp;ID&nbsp;assigned&nbsp;to&nbsp;the&nbsp;created&nbsp;is&nbsp;returned.&nbsp;If&nbsp;any&nbsp;failure&nbsp;occurs,&nbsp;the<br>
+#JSON&nbsp;response&nbsp;would&nbsp;contain&nbsp;a&nbsp;'error'&nbsp;attribute&nbsp;mapping&nbsp;to&nbsp;the&nbsp;error&nbsp;message.</tt></dd></dl>
+ <dl><dt><a name="-listRank"><strong>listRank</strong></a>(request, list_id)</dt><dd><tt>#Handles&nbsp;the&nbsp;`/myApp/lists/rank/&lt;ListID&gt;`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app&nbsp;when&nbsp;encountering&nbsp;a&nbsp;GET&nbsp;request,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;the&nbsp;list&nbsp;rank&nbsp;page.<br>
+#This&nbsp;page&nbsp;should&nbsp;show&nbsp;the&nbsp;ranker&nbsp;itself.<br>
+#The&nbsp;POST&nbsp;request&nbsp;handler&nbsp;at&nbsp;this&nbsp;endpoint&nbsp;expects&nbsp;a&nbsp;JSON&nbsp;in&nbsp;the&nbsp;body&nbsp;containing&nbsp;the&nbsp;attributes&nbsp;'_id',&nbsp;'user',&nbsp;and&nbsp;'items',&nbsp;which&nbsp;should&nbsp;contain&nbsp;the&nbsp;ranked&nbsp;list's<br>
+#ID,&nbsp;the&nbsp;ranking&nbsp;user's&nbsp;username,&nbsp;and&nbsp;an&nbsp;ordered&nbsp;list&nbsp;of&nbsp;String&nbsp;that&nbsp;should&nbsp;be&nbsp;the&nbsp;list&nbsp;items&nbsp;(the&nbsp;best&nbsp;item&nbsp;in&nbsp;front).&nbsp;The&nbsp;method&nbsp;would&nbsp;write&nbsp;to&nbsp;the&nbsp;database,<br>
+#updating&nbsp;the&nbsp;global&nbsp;ranking&nbsp;accordingly&nbsp;and&nbsp;record&nbsp;the&nbsp;personal&nbsp;ranking.</tt></dd></dl>
+ <dl><dt><a name="-listView"><strong>listView</strong></a>(request, list_id)</dt><dd><tt>#&nbsp;Handles&nbsp;the&nbsp;`/myApp/lists/view/&lt;list_id&gt;`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;global&nbsp;ranking&nbsp;page&nbsp;of&nbsp;list&nbsp;with&nbsp;id&nbsp;&lt;list_id&gt;&nbsp;automatically.</tt></dd></dl>
+ <dl><dt><a name="-login"><strong>login</strong></a>(request)</dt><dd><tt>#&nbsp;Handles&nbsp;the&nbsp;`/myApp/login`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;the&nbsp;login&nbsp;page&nbsp;automatically.</tt></dd></dl>
+ <dl><dt><a name="-register"><strong>register</strong></a>(request)</dt><dd><tt>#&nbsp;Handles&nbsp;the&nbsp;`/myApp/register`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;the&nbsp;register&nbsp;page&nbsp;automatically.</tt></dd></dl>
+ <dl><dt><a name="-search"><strong>search</strong></a>(request)</dt><dd><tt>#&nbsp;Handles&nbsp;the&nbsp;`/myApp/search`&nbsp;end&nbsp;point.&nbsp;This&nbsp;method&nbsp;serves&nbsp;the&nbsp;react&nbsp;app,&nbsp;which&nbsp;should&nbsp;then&nbsp;render&nbsp;the&nbsp;search&nbsp;page&nbsp;automatically</tt></dd></dl>
+ <dl><dt><a name="-userProfile"><strong>userProfile</strong></a>(request, username)</dt><dd><tt>#&nbsp;This&nbsp;method&nbsp;was&nbsp;written&nbsp;to&nbsp;render&nbsp;the&nbsp;profile&nbsp;of&nbsp;a&nbsp;user.&nbsp;Submitting&nbsp;a&nbsp;GET&nbsp;request&nbsp;to&nbsp;this&nbsp;endpoint&nbsp;should&nbsp;return&nbsp;the&nbsp;data&nbsp;associated&nbsp;with&nbsp;a&nbsp;user&nbsp;if&nbsp;it&nbsp;exists.<br>
+#&nbsp;Otherwise,&nbsp;it&nbsp;returns&nbsp;a&nbsp;error&nbsp;404.&nbsp;Submitting&nbsp;a&nbsp;PUT&nbsp;request&nbsp;would&nbsp;edit&nbsp;the&nbsp;profile&nbsp;page.</tt></dd></dl>
+ <dl><dt><a name="-userRanking"><strong>userRanking</strong></a>(request, username)</dt><dd><tt>#&nbsp;This&nbsp;method&nbsp;was&nbsp;written&nbsp;to&nbsp;render&nbsp;all&nbsp;the&nbsp;rankings&nbsp;made&nbsp;by&nbsp;the&nbsp;user.&nbsp;Submitting&nbsp;a&nbsp;GET&nbsp;request&nbsp;to&nbsp;this&nbsp;endpoint&nbsp;should&nbsp;return&nbsp;the&nbsp;data&nbsp;associated&nbsp;with&nbsp;a&nbsp;user&nbsp;if&nbsp;it&nbsp;exists.<br>
+#&nbsp;Otherwise,&nbsp;it&nbsp;returns&nbsp;a&nbsp;error&nbsp;404.&nbsp;Submitting&nbsp;a&nbsp;PUT&nbsp;request&nbsp;would&nbsp;edit&nbsp;the&nbsp;profile&nbsp;page.</tt></dd></dl>
+</td></tr></table>
+</body></html>

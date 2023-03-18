@@ -5,9 +5,19 @@ import {Button, Card, TextField, CardContent} from "@mui/material";
 import styled from "styled-components";
 
 const ProfileBox = styled.div`
-  margin: 10vh 30vw auto 0;
+  margin: 10vh 30vw auto 30vw;
   height: 70vh;
-  padding: 5vh 10vw 0vh 0vw;
+  padding: 5vh 0vw 0vh 0vw;
+  width: 40vw;
+  text-align: center;
+`;
+
+const Flex = styled.div`
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+  display: flex;
   text-align: center;
 `;
 
@@ -15,16 +25,17 @@ const ProfileH1 = styled.h1`
   font-family: Andale Mono, monospace;
   color: #09426B;
   color: white;
+  width: 100%;
   font-weight: bold;
-  margin-left: 10vw;
 `;
 
 const ProfileEntry = {
-    width: "50%",
-    height: "20%",
-    margin: "10vh 1vw 1vh 1vw",
-    backgroundColor: "white",
-    color: "black"
+    width: "25%",
+    height: "15%",
+    margin: "1vh 1vw 1vh 1vw",
+    border: "solid #09426B",
+    backgroundColor: "rgba(0, 0, 0, 0.906)",
+    color: "white"
 };
 
 const Profile = () => {
@@ -87,8 +98,10 @@ const Profile = () => {
             console.log("success fetch ranking");
             console.log(res.data.ranking_list.toString());
             console.log(typeof res.data.ranking_list.toString());
-
-            alert (res.data.ranking_list.toString());
+            let ranking = "";
+            res.data.ranking_list.forEach(element => ranking += element + " > ");
+            ranking = ranking.substring(0, ranking.length - 2);
+            alert (ranking);
         }).catch((error) => {
             console.log(error)
         })
@@ -99,21 +112,23 @@ const Profile = () => {
             <meta charSet="UTF-8"></meta>
             <ProfileBox>
                 <ProfileH1>Hi! {firstName} {lastName}! Your rankings are: </ProfileH1>
-                {data.map((entry)=>{
-                    let id = entry.list_id;
-                    console.log(id);
+                <Flex>
+                    {data.map((entry)=>{
+                        let id = entry.list_id;
+                        console.log(id);
 
 
-                    return(
-                        <Card style={ProfileEntry}>
-                            <CardContent>
-                                <p>{entry.list_title}:</p>
-                                <Button onClick={async () => renderCards(entry)}>Your Ranking</Button>
-                            </CardContent>
-                        </Card>
-                    )
+                        return(
+                            <Card style={ProfileEntry}>
+                                <CardContent>
+                                    <p>{entry.list_title}:</p>
+                                    <Button onClick={async () => renderCards(entry)}>Your Ranking</Button>
+                                </CardContent>
+                            </Card>
+                        )
                     })
-                }
+                    }
+                </Flex>
             </ProfileBox>
         </div>
     );

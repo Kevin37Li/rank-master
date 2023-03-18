@@ -20,8 +20,9 @@ const LoginBox = styled.div`
 const LoginEntry = {
     width: "90%",
     height: "10%",
-    margin: "1vh 1vw 0vh 1vw",
+    margin: "1vh 1vw 1vh 1vw",
     backgroundColor: "white",
+    padding: "6px",
 };
 
 const LoginDivider = {
@@ -69,7 +70,7 @@ const Login = () => {
             <LoginBox>
                 <h2>Login</h2>
                 <TextField required id="username" label="Username" style={LoginEntry} onChange={(event) => setUsername(event.target.value)}/>
-                <TextField required id="password" style={LoginEntry} label="Password" onChange={(event) => setPassword(event.target.value)}/>
+                <TextField required id="password" type="password" style={LoginEntry} label="Password" onChange={(event) => setPassword(event.target.value)}/>
                 <Button style={ButtonStyle} variant="contained" onClick={() => handleLogin()} >Login</Button>
                 <Divider style={LoginDivider}/>
                 <Button style={ButtonStyle} variant="contained">

@@ -24,31 +24,30 @@ from rest_framework import status
 
 from .models import UserProfile, User, Rank
 
-# `/myApp` leads to the front page (should list all categories here)
+# Handles the `/myApp` end point. This method serves the react app, which should then render the front page automatically
 def index(request):
     return render(request, "index.html")
 
-# `/myApp/search` is the search results page
+# Handles the `/myApp/search` end point. This method serves the react app, which should then render the search page automatically
 def search(request):
     return render(request, "index.html")
 
-# `/myApp/categories` shows all categories
+
+# Handles the `/myApp/categories` end point. This method serves the react app, which should then render the categories page.
+# The categories page shows all categories of lists.
 def categoriesList(request):
     return render(request, "index.html")
 
-# `/myApp/categories/<CategoryName>` shows the lists belonging to a category
-def categoriesSpecific(request, category_name):
-    return render(request, "index.html")
-
-# `/myApp/register` registers a user
+# Handles the `/myApp/register` end point. This method serves the react app, which should then render the register page automatically.
 def register(request):
     return HttpResponse("Register Page")
 
-# `/myApp/login` allows the user to log in
+# Handles the `/myApp/login` end point. This method serves the react app, which should then render the login page automatically.
 def login(request):
     return render(request, "index.html")
 
-@api_view(['GET', 'PUT'])
+# This method was written to render the profile of a user. Submitting a GET request to this endpoint should return the data associated with a user if it exists.
+# Otherwise, it returns a error 404. Submitting a PUT request would edit the profile page.
 def userProfile(request, username):
     @permission_classes([AllowAny if request.method == 'GET' else IsAuthenticated])
     def inner_view(request, username):
@@ -67,8 +66,9 @@ def userProfile(request, username):
 
     return inner_view(request, username)
 
-# `/myApp/user/<UserID>/<ListID>` shows a list's ranking by the user with `<UserID>`
-@api_view(['GET'])
+
+# This method was written to render all the rankings made by the user. Submitting a GET request to this endpoint should return the data associated with a user if it exists.
+# Otherwise, it returns a error 404. Submitting a PUT request would edit the profile page.
 def userRanking(request, username):
     user = get_object_or_404(User, username=username)
     rankings = Rank.objects.filter(user_id = user.id)
@@ -76,11 +76,24 @@ def userRanking(request, username):
     serializer = RankSerializer(rankings, many=True, context={'request': request})
     return Response(serializer.data)
 
-# `/myApp/lists/view/<ListID>` shows the global ranking of the list with `<ListID>`
+# Handles the `/myApp/lists/view/<list_id>` end point. This method serves the react app, which should then render global ranking page of list with id <list_id> automatically.
 def listView(request, list_id):
     return render(request, "index.html")
 
-# handles GET request submitted to /get/user/<username>
+#This method handles GET request submitted to /get/user/<username>. This is to be used for rendering the profile page of the user.
+#If a user with ID username exists, we return a JSON like so:
+#{
+#    'username': String, // the username the user has chosen
+#    'first_name': String, // the first name the user registered with
+#    'last_name': String, // the last name the user registered with
+#    'email': String, // the email the user registered with
+#    'lists': List[String], // a list of listIDs of the lists the user created
+#    'rankings': List[Object] // a list of objects containing attribute 'list_id' and 'list_title', which is the ID and title, respectively, of the list that the user ranked
+#}
+#If anything goes wrong, the returned JSON is of form:
+#{
+#    'error': String // the error message
+#}
 def getUser(request, username):
     # fetch the username
     # 'rankings' and 'lists' **only** contains the list ID's, nothing else
@@ -105,6 +118,18 @@ def getUser(request, username):
             return_profile['rankings'].append({"list_id": ranking['id_list'], "list_title": ranking['title']})
     return JsonResponse(return_profile)
 
+#This method handles GET request submitted to /get/user/<username>/<list_id>. This is to be used to render the ranking of a particular user on a particular list.
+#If a user with ID username exists, we return a JSON like so:
+#{
+#    'title': String, // the title of the ranked list
+#    'id_list': String, // the ID of the ranked list
+#    'ranking_list': List[String], // an ordered list that is the ranking itself (first is ranked best)
+#}
+#If anything goes wrong, the returned JSON is of form:
+#{
+#    'error': String // the error message
+#}
+#'''
 def getRanking(request, username, list_id):
     # TODO: check if the user is logged in or wtv
     user = get_object_or_404(User, username=username) # get the user with the username
@@ -119,29 +144,34 @@ def getRanking(request, username, list_id):
         returnRanking[key] = val
     return JsonResponse(returnRanking)
 
-'''
-handles GET request submitted to '/get/lists/<params>
-params are normal GET parameters. Accepted parameters include:
-- 'id': id of the list in the db. If used, this should be the only parameter in <params>
-- 'category': string of the category, can be used with 'page'
-- 'contains': NOT IMPLEMENTED yet, but should be used to look for titles that matches the string
-- 'page': positive integer of the page number of the results, accepted only if 'category' or 'contains' are supplied
-returns:
-- if there is an error, the JSON would be of form:
-  {
-    'error': {
-        'message': String // error message here
-    }
-  }
-- if successful get with id, the returned JSON would be of form:
-  {
-    'payload': Object
-  }
-- if successful get with category or contains, the returned JSON would be of form:
-  {
-    'payload': Object[]
-  }
-'''
+#handles GET request submitted to '/get/lists/<params>
+#params are normal GET parameters. Accepted parameters include:
+#- 'id': id of the list in the db. If used, this should be the only parameter in <params>
+#- 'category': string of the category, can be used with 'page'
+#- 'contains': NOT IMPLEMENTED yet, but should be used to look for titles that matches the string
+#- 'page': positive integer of the page number of the results, accepted only if 'category' or 'contains' are supplied
+#returns:
+#- if there is an error, the JSON would be of form:
+#  {
+#    'error': {
+#        'message': String // error message here
+#    }
+#  }
+#- if successful get with id, the returned JSON would be of form:
+#  {
+#    'payload': Object
+#  }
+#- if successful get with category or contains, the returned JSON would be of form:
+#  {
+#    'payload': Object[]
+#  }
+#- The object meant to represent the list would be of form:
+#  {
+#    '_id': String, // the ID of the list
+#    'title': String, // the title of the list
+#    'createdAt': Integer, // the time at which the list is created in Unix time
+#    'user': String, // the username of the user who created the list
+#  }
 def getLists(request):
     def setPayload(payload): #payload can be either a dictionary or a list of dictionaries
         return JsonResponse({ 'payload': payload})
@@ -226,7 +256,11 @@ def getLists(request):
         return setPayload(matchedResults)
     return HttpResponse("list items")
 
-# `/myApp/lists/rank/<ListID>` allows for a ranking to be made out of a list
+#Handles the `/myApp/lists/rank/<ListID>` end point. This method serves the react app when encountering a GET request, which should then render the list rank page.
+#This page should show the ranker itself.
+#The POST request handler at this endpoint expects a JSON in the body containing the attributes '_id', 'user', and 'items', which should contain the ranked list's
+#ID, the ranking user's username, and an ordered list of String that should be the list items (the best item in front). The method would write to the database,
+#updating the global ranking accordingly and record the personal ranking.
 def listRank(request, list_id):
     if request.method == 'GET':
         return render(request, "index.html")
@@ -277,7 +311,14 @@ def listRank(request, list_id):
         
         return HttpResponse('success')
 
-# `/myApp/lists/create` should allow a logged-in user to create a list
+# Handles the `/myApp/lists/create` end point. This method serves the react app when encountering a GET request, which should then render the create list page.
+#This page should allow a logged-in user to create a list.
+#The POST request handler at this endpoint expects a HTML form data in the body containing the key-value pairs. The keys should include: 'title',
+#'category', and 'user'. The 'title' should map to the title of the string. 'category' should map to the category the list should belong to, and 'user' should
+#be the ID of the user creating the list. A variable of 'item<Number>' keys should also be present, with the exact number equal to the number of items in the list. 
+#The 'item<Number>' keys should map to a string that is the item itself. Finally, a 'public' variable may or may not be present. If present, it would indicate the 
+#list is to be made public. Upon success, a JSON response with a single 'id' attribute equal to the ID assigned to the created is returned. If any failure occurs, the
+#JSON response would contain a 'error' attribute mapping to the error message.
 def listCreate(request):
     if request.method == 'GET':
         return render(request, "index.html")
