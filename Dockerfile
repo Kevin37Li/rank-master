@@ -17,6 +17,6 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
+      - ./rankMaster:/app/backend
     command: python manage.py runserver 0.0.0.0:8000
 
