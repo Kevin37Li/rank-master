@@ -144,3 +144,15 @@ Each list document has the following form:
     category: String // category of the list
 }
 ```
+
+
+## Triggering pipeline
+
+To trigger the pipeline, simply push your changes to the `master` branch. CircleCI will automatically run the `build_and_test` job, which includes building Docker images, running tests, and starting the frontend and backend services.
+
+Make sure you have the following files in your repository:
+
+1. `.circleci/config.yml` - Contains the CI pipeline configuration.
+2. `./rankMaster/react-frontend` - Contains the Docker configuration for the frontend.
+3. `./rankMaster` - Contains the Docker configuration for the backend.
+4. `docker-compose.yml` - Contains the Docker Compose configuration for managing the frontend and backend services.
